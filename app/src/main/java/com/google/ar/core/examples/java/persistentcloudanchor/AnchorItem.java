@@ -40,6 +40,7 @@ class AnchorItem {
   public String getAnchorName() {
     return anchorName;
   }
+  public Map<String, Float> getEdges(){return edges;}
 
   public String getAnchorId() {
     return anchorId;
