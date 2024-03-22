@@ -7,13 +7,13 @@ import android.content.SharedPreferences;
 import java.util.List;
 
 public class DistanceController {
-    private List<AnchorItem> anchors;
+
 
     private SharedPreferences sharedPreferences;
 
     public void DistanceSave(String SourceName, String DestName, Float distance){
         // retrieveing the stored anchors
-        anchors = retrieveStoredAnchors(sharedPreferences);
+        List<AnchorItem> anchors = retrieveStoredAnchors(sharedPreferences);
         AnchorItem found;
         for(AnchorItem anchor: anchors) {
             if (anchor.getAnchorName().equals(SourceName)) {
@@ -24,8 +24,16 @@ public class DistanceController {
             if (anchor.getAnchorName().equals(DestName)){
                 anchor.DistanceUpdate(SourceName, distance);
             }
+            setPreferences(anchors);
+        }
+    }
+    public void setPreferences(List<AnchorItem> anchors){
+        String hostedAnchorIds = sharedPreferences.getString(CloudAnchorActivity.HOSTED_ANCHOR_DISTANCES, "");
+        for(AnchorItem anchor : anchors){
 
         }
+
+
     }
 
 

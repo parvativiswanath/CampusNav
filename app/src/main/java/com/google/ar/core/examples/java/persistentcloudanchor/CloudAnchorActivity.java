@@ -85,6 +85,7 @@ public class CloudAnchorActivity extends AppCompatActivity implements GLSurfaceV
   private static final String ALLOW_SHARE_IMAGES_KEY = "ALLOW_SHARE_IMAGES";
   protected static final String PREFERENCE_FILE_KEY = "CLOUD_ANCHOR_PREFERENCES";
   protected static final String HOSTED_ANCHOR_IDS = "anchor_ids";
+  protected static final String HOSTED_ANCHOR_DISTANCES = "anchor_edges";
   protected static final String HOSTED_ANCHOR_NAMES = "anchor_names";
   protected static final String HOSTED_ANCHOR_MINUTES = "anchor_minutes";
   protected static final double MIN_DISTANCE = 0.2f;
