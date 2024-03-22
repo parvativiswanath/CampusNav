@@ -15,6 +15,8 @@
  */
 package com.google.ar.core.examples.java.persistentcloudanchor;
 
+import java.util.HashMap;
+import java.util.Map;
 /** Container class holding identifying information for an Anchor to be resolved. */
 class AnchorItem {
 
@@ -22,14 +24,19 @@ class AnchorItem {
   private final String anchorName;
   private final long minutesSinceCreation;
   private boolean selected;
+  private Map<String, Float> edges;
 
   public AnchorItem(String anchorId, String anchorName, long minutesSinceCreation) {
     this.anchorId = anchorId;
     this.anchorName = anchorName;
     this.minutesSinceCreation = minutesSinceCreation;
     this.selected = false;
+    this.edges = new HashMap<>();
   }
 
+  public void DistanceUpdate(String anchorId, Float distance){
+    this.edges.put(anchorId, distance);
+  }
   public String getAnchorName() {
     return anchorName;
   }
