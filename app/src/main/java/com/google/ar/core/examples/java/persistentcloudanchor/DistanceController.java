@@ -10,7 +10,7 @@ import android.content.ContextWrapper;
 import java.util.List;
 
 public class DistanceController {
-    private Context context;
+    private final Context context;
 
     public DistanceController(Context context) {
         this.context = context;
