@@ -3,6 +3,7 @@ package com.google.ar.core.examples.java.persistentcloudanchor;
 import static com.google.ar.core.examples.java.persistentcloudanchor.ResolveAnchorsLobbyActivity.retrieveStoredAnchors;
 
 import android.content.SharedPreferences;
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -30,6 +31,7 @@ public class DistanceController {
     public void setPreferences(List<AnchorItem> anchors){
         String hostedAnchorIds = sharedPreferences.getString(CloudAnchorActivity.HOSTED_ANCHOR_DISTANCES, "");
         for(AnchorItem anchor : anchors){
+
 
         }
 
