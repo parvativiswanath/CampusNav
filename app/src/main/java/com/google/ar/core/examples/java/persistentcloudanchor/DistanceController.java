@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import com.google.gson.Gson;
 import android.content.ContextWrapper;
+import android.util.Log;
 
 import java.util.List;
 
@@ -17,6 +18,19 @@ public class DistanceController {
     }
 
     private SharedPreferences sharedPreferences;
+
+    public void printDistances(String anchorName) {
+        sharedPreferences =
+                context.getSharedPreferences(CloudAnchorActivity.PREFERENCE_FILE_KEY, Context.MODE_PRIVATE);
+        List<AnchorItem> anchors = retrieveStoredAnchors(sharedPreferences);
+
+        for (AnchorItem anchor: anchors) {
+            if (anchor.getAnchorName().equals(anchorName)) {
+                Log.d("PRINT", anchorName + " : " + anchor.getEdges().toString());
+                break;
+            }
+        }
+    }
 
     public void DistanceSave(String SourceName, String DestName, Float distance){
         // retrieveing the stored anchors
