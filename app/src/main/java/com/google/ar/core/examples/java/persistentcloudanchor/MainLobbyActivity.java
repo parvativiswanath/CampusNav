@@ -41,10 +41,12 @@ public class MainLobbyActivity extends AppCompatActivity {
     displayRotationHelper = new DisplayRotationHelper(this);
     MaterialButton hostButton = findViewById(R.id.host_button);
     hostButton.setOnClickListener((view) -> onHostButtonPress());
-    MaterialButton resolveButton = findViewById(R.id.begin_resolve_button);
-    resolveButton.setOnClickListener((view) -> onResolveButtonPress());
+    MaterialButton addDistanceButton = findViewById(R.id.get_distance_text);
+    addDistanceButton.setOnClickListener((view) -> onAddDistanceButtonPress());
     Button firebaseButton = findViewById(R.id.firebase_button_text);
     firebaseButton.setOnClickListener((view) -> onFirebaseButtonPress());
+    MaterialButton resolveButton = findViewById(R.id.begin_resolve_button);
+    resolveButton.setOnClickListener((view) -> onResolveButtonPress());
     MaterialButton navigateButton = findViewById(R.id.begin_navigate_button);
     navigateButton.setOnClickListener((view) -> onNavigateButtonPress());
   }
@@ -63,6 +65,11 @@ public class MainLobbyActivity extends AppCompatActivity {
 
   private void onHostButtonPress() {
     Intent intent = CloudAnchorActivity.newHostingIntent(this);
+    startActivity(intent);
+  }
+
+  private void onAddDistanceButtonPress() {
+    Intent intent = AddDistanceActivity.newIntent(this);
     startActivity(intent);
   }
 

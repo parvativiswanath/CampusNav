@@ -19,6 +19,7 @@
   <string name="app_name">Persistent Cloud Anchor Sample</string>
   <string name="cancel">Cancel</string>
   <string name="host_button_text">Begin hosting</string>
+  <string name="get_distance_text">Add distance</string>
   <string name="host_title_text">Mapping</string>
   <!-- [CHAR_LIMIT=NONE] -->
   <string name="host_instructions_text">Scan your space to create a new cloud anchor accessible by others</string>
@@ -92,5 +93,5 @@
   <string name="learn_more">Learn more</string>
   <!-- Privacy learn more URL. [CHAR_LIMIT=NONE] -->
   <string name="learn_more_url">https://developers.google.com/ar/data-privacy</string>
-  <string name="firebase_button_text">Firebase Test</string>
+  <string name="firebase_button_text">Save Map</string>
 </resources>
