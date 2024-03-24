@@ -37,7 +37,9 @@ public class NavigationManager {
         return graphMap;
     }
 
-    public List<String> findShortestPath(String start, String Dest){
+    public List<String> findShortestPath(){
+        String start = this.Source;
+        String Dest = this.Destination;
         Map<String, Float> distances = new HashMap<>();
         Map<String, String> previousNodes = new HashMap<>();
         for (String node : graph.keySet()) {
