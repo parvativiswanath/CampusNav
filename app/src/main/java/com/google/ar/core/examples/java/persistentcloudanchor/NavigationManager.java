@@ -41,7 +41,7 @@ public class NavigationManager {
         Map<String, Float> distances = new HashMap<>();
         Map<String, String> previousNodes = new HashMap<>();
         for (String node : graph.keySet()) {
-            distances.put(node, Float.MAX_VALUE);
+            distances.put(node, Float.MAX_VALUE);  // gotta change this
         }
         distances.put(start, 0f);
         PriorityQueue<String> queue = new PriorityQueue<>(Comparator.comparingDouble(distances::get));
