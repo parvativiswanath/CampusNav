@@ -67,6 +67,7 @@
     <activity
         android:name=".AddDistanceActivity"
         android:configChanges="orientation|screenSize"
+        android:windowSoftInputMode="adjustResize"
         android:exported="false"
         android:screenOrientation="locked"
         android:theme="@style/AppTheme">
