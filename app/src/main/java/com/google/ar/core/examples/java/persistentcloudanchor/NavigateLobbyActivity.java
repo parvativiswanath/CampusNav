@@ -37,6 +37,11 @@ public class NavigateLobbyActivity extends AppCompatActivity {
         Log.d(TAG, "Find path button pressed");
         EditText start = (EditText) findViewById(R.id.anchor_start);
         EditText dest = (EditText) findViewById(R.id.anchor_dest);
-        //ShortestPath.findShortestPath(start,dest);
+        NavigationManager findpath = new NavigationManager(start.getText().toString(),dest.getText().toString());
+        //change to class member so as to access it in visualisation part
+        List<String> path = findpath.findShortestPath();
+        String pathToPrint = path.toString();
+        Log.d("Navigation Result", pathToPrint);
+
     }
 }

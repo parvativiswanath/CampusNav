@@ -17,10 +17,13 @@ package com.google.ar.core.examples.java.persistentcloudanchor;
 
 import android.util.Log;
 
+import com.google.ar.core.Anchor;
+
 import java.util.HashMap;
 import java.util.Map;
 /** Container class holding identifying information for an Anchor to be resolved. */
-class AnchorItem {
+public class AnchorItem extends Anchor {
+
   private static final String TAG = "AnchorItem";
   private final String anchorId;
   private final String anchorName;
