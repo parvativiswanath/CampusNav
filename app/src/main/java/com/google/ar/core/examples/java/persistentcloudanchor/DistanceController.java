@@ -49,8 +49,9 @@ public class DistanceController {
             if (anchor.getAnchorName().equals(DestName)){
                 anchor.DistanceUpdate(SourceName, distance);
             }
-            setPreferences(anchors);
+
         }
+        setPreferences(anchors);
     }
     public void setPreferences(List<AnchorItem> anchors){
         //String hostedAnchorId = sharedPreferences.getString(CloudAnchorActivity.HOSTED_ANCHOR_DISTANCES, "");
