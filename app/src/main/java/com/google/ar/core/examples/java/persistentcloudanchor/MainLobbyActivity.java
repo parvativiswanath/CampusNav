@@ -16,7 +16,11 @@
 
 package com.google.ar.core.examples.java.persistentcloudanchor;
 
+import static com.google.ar.core.examples.java.persistentcloudanchor.ResolveAnchorsLobbyActivity.retrieveStoredAnchors;
+
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -26,12 +30,20 @@ import com.google.firebase.database.FirebaseDatabase;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.ar.core.examples.java.common.helpers.DisplayRotationHelper;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /** Main Navigation Activity for the Persistent Cloud Anchor Sample. */
 public class MainLobbyActivity extends AppCompatActivity {
 
   private static final String TAG = "MainLobbyActivity";
   private DisplayRotationHelper displayRotationHelper;
+  private SharedPreferences anchorPreferences;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -86,31 +98,35 @@ public class MainLobbyActivity extends AppCompatActivity {
   }
 
   private void onFirebaseButtonPress() {
+
+    anchorPreferences = this.getSharedPreferences(CloudAnchorActivity.PREFERENCE_FILE_KEY, Context.MODE_PRIVATE);
+    //List<AnchorItem> anchors = new ArrayList<>();
+
     DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference();
-    //SharedPreferences anchorPreferences
-    // Assuming you have a data model class named "User" and an instance of that class named "user"
-//    databaseRef.child("users").child("userId").setValue("user");
-//    databaseRef.setValue("Hello, World!");
-//    String hostedAnchorIds = anchorPreferences.getString(HOSTED_ANCHOR_IDS, "");
-//    String hostedAnchorNames = anchorPreferences.getString(HOSTED_ANCHOR_NAMES, "");
 
-//    String hostedAnchorIds = "anchor1;anchor2;anchor3";
-//    String hostedAnchorNames = "Anchor One;Anchor Two;Anchor Three";
-//
-//    String[] idsArray = hostedAnchorIds.split(";");
-//    String[] namesArray = hostedAnchorNames.split(";");
-
-    // Assuming the distances are stored in a HashMap inside the AnchorItem class
-      AnchorItem anchorItem = new AnchorItem("123","anchor1",60);
-      String id = anchorItem.getAnchorId();
-      databaseRef.child("myanchors").child(id).setValue(anchorItem);
-
-//    for (int i = 0; i < idsArray.length; i++) {
-//      String id = idsArray[i];
-//      String name = namesArray[i];
-//
-//      databaseRef.child(id).child("id").setValue(id);
-//      databaseRef.child(id).child("name").setValue(name);
-//    }
+    String hostedAnchorIds = anchorPreferences.getString(CloudAnchorActivity.HOSTED_ANCHOR_IDS, "");
+    String hostedAnchorNames =
+            anchorPreferences.getString(CloudAnchorActivity.HOSTED_ANCHOR_NAMES, "");
+    String hostedAnchorMinutes =
+            anchorPreferences.getString(CloudAnchorActivity.HOSTED_ANCHOR_MINUTES, "");
+    String hostedAnchorEdges = anchorPreferences.getString(CloudAnchorActivity.HOSTED_ANCHOR_DISTANCES, "");
+    if (!hostedAnchorIds.isEmpty()) {
+      String[] anchorIds = hostedAnchorIds.split(";", -1);
+      String[] anchorNames = hostedAnchorNames.split(";", -1);
+      String[] anchorMinutes = hostedAnchorMinutes.split(";", -1);
+      String[] jsonStrings = hostedAnchorEdges.split(";");
+      for (int i = 0; i < anchorIds.length - 1; i++) {
+        long timeSinceCreation =
+                TimeUnit.MILLISECONDS.toMinutes(System.currentTimeMillis())
+                        - Long.parseLong(anchorMinutes[i]);
+        if (timeSinceCreation < 24 * 60) {
+          Gson gson = new Gson();
+          Map<String, Float> edges = gson.fromJson(jsonStrings[i], new TypeToken<Map<String, Float>>() {}.getType());
+          AnchorItem anchor = new AnchorItem(anchorIds[i], anchorNames[i], timeSinceCreation);
+          anchor.setEdges(edges);
+          databaseRef.child("myanchors").child(anchorIds[i]).setValue(anchor);
+        }
+      }
+    }
   }
 }

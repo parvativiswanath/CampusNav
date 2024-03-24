@@ -40,6 +40,10 @@ class AnchorItem {
   public String getAnchorName() {
     return anchorName;
   }
+
+  public void setEdges(Map<String, Float> edges) {
+    this.edges = edges;
+  }
   public Map<String, Float> getEdges(){return edges;}
 
   public String getAnchorId() {
