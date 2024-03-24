@@ -1,5 +1,13 @@
 package com.google.ar.core.examples.java.persistentcloudanchor;
 
+import android.util.Log;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -9,7 +17,7 @@ import java.util.Map;
 import java.util.PriorityQueue;
 
 public class NavigationManager {
-    // insert code load data from firebase and then store them to anchors
+    private static final String TAG = "Navigate";
 
     // method to get the input fields of source and destination
 
@@ -19,12 +27,37 @@ public class NavigationManager {
 
     private List<AnchorItem> anchors;
 
-
     public NavigationManager(String Source, String Destination){
+        anchors = new ArrayList<>();
         this.Source = Source;
         this.Destination = Destination;
         this.graph = convertToGraphMap(/*parameter to pass anchors that were caught from firebase*/ anchors);
     }
+
+    // insert code load data from firebase and then store them to anchors
+    public void getAnchorsFromFirebase() {
+        DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("myanchors");
+        databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //whenever firebase data is updated, anchors list data is also updated
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    AnchorItem anchorItem = snapshot.getValue(AnchorItem.class);
+                    if (anchorItem != null) {
+                        anchors.add(anchorItem);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                //firebase listener not working
+                Log.d(TAG,"Firebase Listener Error");
+            }
+        });
+    }
+
+
 
     public static Map<String, Map<String, Float>> convertToGraphMap(List<AnchorItem> anchors){
         Map<String, Map<String,Float>> graphMap = new HashMap<>();
