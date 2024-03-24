@@ -2,6 +2,8 @@ package com.google.ar.core.examples.java.persistentcloudanchor;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,30 +33,33 @@ public class NavigationManager {
         anchors = new ArrayList<>();
         this.Source = Source;
         this.Destination = Destination;
+        this.anchors = getAnchorsFromFirebase();
         this.graph = convertToGraphMap(/*parameter to pass anchors that were caught from firebase*/ anchors);
     }
 
     // insert code load data from firebase and then store them to anchors
-    public void getAnchorsFromFirebase() {
+    public ArrayList<AnchorItem> getAnchorsFromFirebase() {
+        ArrayList<AnchorItem> anchorsf = new ArrayList<>();
         DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("myanchors");
         databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 //whenever firebase data is updated, anchors list data is also updated
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     AnchorItem anchorItem = snapshot.getValue(AnchorItem.class);
                     if (anchorItem != null) {
-                        anchors.add(anchorItem);
+                        anchorsf.add(anchorItem);
                     }
                 }
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
                 //firebase listener not working
                 Log.d(TAG,"Firebase Listener Error");
             }
         });
+        return anchorsf;
     }
 
 

@@ -38,6 +38,10 @@ public class NavigateLobbyActivity extends AppCompatActivity {
         EditText start = (EditText) findViewById(R.id.anchor_start);
         EditText dest = (EditText) findViewById(R.id.anchor_dest);
         NavigationManager findpath = new NavigationManager(start.getText().toString(),dest.getText().toString());
+        //change to class member so as to access it in visualisation part
+        List<String> path = findpath.findShortestPath();
+
+
 
     }
 }
