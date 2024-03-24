@@ -26,7 +26,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.ar.core.examples.java.common.helpers.DisplayRotationHelper;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /** Lobby activity for resolving anchors in the Persistent Cloud Anchor Sample. */
@@ -37,7 +39,9 @@ public class ResolveAnchorsLobbyActivity extends AppCompatActivity {
 
   public static List<AnchorItem> retrieveStoredAnchors(SharedPreferences anchorPreferences) {
     List<AnchorItem> anchors = new ArrayList<>();
+    Map<String, Float> edges;
     String hostedAnchorIds = anchorPreferences.getString(CloudAnchorActivity.HOSTED_ANCHOR_IDS, "");
+    String hostedAnchorDistances = anchorPreferences.getString(CloudAnchorActivity.HOSTED_ANCHOR_DISTANCES,"");
     String hostedAnchorNames =
         anchorPreferences.getString(CloudAnchorActivity.HOSTED_ANCHOR_NAMES, "");
     String hostedAnchorMinutes =
@@ -46,16 +50,34 @@ public class ResolveAnchorsLobbyActivity extends AppCompatActivity {
       String[] anchorIds = hostedAnchorIds.split(";", -1);
       String[] anchorNames = hostedAnchorNames.split(";", -1);
       String[] anchorMinutes = hostedAnchorMinutes.split(";", -1);
+      String[] anchorDistances = hostedAnchorDistances.split(";",-1);
       for (int i = 0; i < anchorIds.length - 1; i++) {
         long timeSinceCreation =
             TimeUnit.MILLISECONDS.toMinutes(System.currentTimeMillis())
                 - Long.parseLong(anchorMinutes[i]);
+
         if (timeSinceCreation < 24 * 60) {
-          anchors.add(new AnchorItem(anchorIds[i], anchorNames[i], timeSinceCreation));
+          edges = parseDistances(anchorDistances[i]);
+          AnchorItem anchor = new AnchorItem(anchorIds[i], anchorNames[i], timeSinceCreation);
+          anchor.setEdges(edges);
+          anchors.add(anchor);
+
         }
       }
     }
     return anchors;
+  }
+
+  private static Map<String, Float> parseDistances(String distancesString){
+    Map<String, Float>  edges = new HashMap<>();
+    String[] distancesArray = distancesString.split(",", -1);
+    for(String distanceEntry : distancesArray){
+      String[] parts = distanceEntry.split("=",-1);
+      String neighbor = parts[0];
+      Float distance = Float.parseFloat(parts[1]);
+      edges.put(neighbor, distance);
+    }
+    return edges;
   }
 
   private DisplayRotationHelper displayRotationHelper;
