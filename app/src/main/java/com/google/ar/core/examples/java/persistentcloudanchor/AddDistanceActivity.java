@@ -13,6 +13,7 @@ import com.google.ar.core.examples.java.common.helpers.DisplayRotationHelper;
 
 public class AddDistanceActivity extends AppCompatActivity {
     private static final String TAG = "AddDistanceActivity";
+    private DistanceController distanceController = new DistanceController(this);;
     private DisplayRotationHelper displayRotationHelper;
 
     static Intent newIntent(Context packageContext) {
@@ -29,7 +30,6 @@ public class AddDistanceActivity extends AppCompatActivity {
 
     private void onUpdateButtonPress() {
         Log.d(TAG, "Update button pressed");
-        DistanceController distanceController = new DistanceController(this);
 
         EditText anchor1 = (EditText) findViewById(R.id.anchor1);
         EditText anchor2 = (EditText) findViewById(R.id.anchor2);

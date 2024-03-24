@@ -30,7 +30,6 @@ public class NavigateLobbyActivity extends AppCompatActivity {
         displayRotationHelper = new DisplayRotationHelper(this);
         MaterialButton findPathButton = findViewById(R.id.find_path_button);
         findPathButton.setOnClickListener((view) -> onFindPathButtonPress());
-
     }
 
     private void onFindPathButtonPress() {
