@@ -12,7 +12,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.ar.core.examples.java.common.helpers.DisplayRotationHelper;
 
 public class AddDistanceActivity extends AppCompatActivity {
-    private static final String TAG = "NavigateLobbyActivity";
+    private static final String TAG = "AddDistanceActivity";
     private DisplayRotationHelper displayRotationHelper;
 
     static Intent newIntent(Context packageContext) {

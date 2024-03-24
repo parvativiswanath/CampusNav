@@ -11,6 +11,8 @@ import android.util.Log;
 import java.util.List;
 
 public class DistanceController {
+
+    private static final String TAG = "DistanceController";
     private final Context context;
 
     public DistanceController(Context context) {
@@ -72,8 +74,8 @@ public class DistanceController {
         }
         //Finalllly, setting the string in the shared prefs
         sharedPreferences.edit().putString(CloudAnchorActivity.HOSTED_ANCHOR_DISTANCES, hostedAnchorIds).apply();
-
-
+        String toprint = sharedPreferences.getString(CloudAnchorActivity.HOSTED_ANCHOR_DISTANCES,"DEFYOUFUNYN");
+        Log.d(TAG,toprint);
     }
 
 
