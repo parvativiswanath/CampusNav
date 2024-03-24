@@ -29,7 +29,7 @@
         android:text="@string/begin_navigate_button_text"
         android:theme="@style/AppButtonTheme"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.693"
+        app:layout_constraintHorizontal_bias="0.744"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/resolve_instructions" />
 
@@ -101,10 +101,10 @@
 
     <TextView
         android:id="@+id/host_instructions"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="403dp"
+        android:layout_height="104dp"
         android:gravity="center"
-        android:padding="40dp"
+        android:padding="20dp"
         android:text="@string/host_instructions_text"
         android:textSize="20sp"
         app:layout_constraintHorizontal_bias="0.0"
@@ -122,7 +122,7 @@
         android:theme="@style/AppButtonTheme"
         app:layout_constraintBottom_toTopOf="@+id/guideline_host"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.159"
+        app:layout_constraintHorizontal_bias="0.154"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.button.MaterialButton
@@ -134,7 +134,7 @@
         android:theme="@style/AppButtonTheme"
         app:layout_constraintBottom_toTopOf="@+id/guideline_host"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.844"
+        app:layout_constraintHorizontal_bias="0.871"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.button.MaterialButton
@@ -161,17 +161,18 @@
         app:layout_constraintTop_toBottomOf="@+id/guideline_resolve" />
 
     <TextView
-          android:id="@+id/resolve_instructions"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          app:layout_constraintVertical_chainStyle="spread_inside"
-          app:layout_constraintTop_toBottomOf="@+id/resolve_title"
-          app:layout_constraintLeft_toLeftOf="parent"
-          app:layout_constraintRight_toRightOf="parent"
-          android:text="@string/resolve_instructions_text"
-          android:gravity="center"
-          android:textSize="20sp"
-          android:padding="40dp"/>
+        android:id="@+id/resolve_instructions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="30dp"
+        android:text="@string/resolve_instructions_text"
+        android:textSize="20sp"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/resolve_title"
+        app:layout_constraintVertical_chainStyle="spread_inside" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/begin_resolve_button"
@@ -180,7 +181,7 @@
         android:text="@string/begin_resolve_button_text"
         android:theme="@style/AppButtonTheme"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.277"
+        app:layout_constraintHorizontal_bias="0.242"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/resolve_instructions" />
 

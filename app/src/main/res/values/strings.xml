@@ -18,7 +18,7 @@
   <!-- Strings in the main lobby activity -->
   <string name="app_name">Persistent Cloud Anchor Sample</string>
   <string name="cancel">Cancel</string>
-  <string name="host_button_text">Begin hosting</string>
+  <string name="host_button_text">Host an anchor</string>
   <string name="get_distance_text">Add distance</string>
   <string name="host_title_text">Mapping</string>
   <!-- [CHAR_LIMIT=NONE] -->
@@ -38,14 +38,14 @@
   <string name="select_anchors_text">Select from anchors previously hosted from this device</string>
   <string name="enter_anchor_text">Enter anchor ID(s) manually, separated by commas</string>
   <string name="enter_anchor_hint">Anchor IDs...</string>
-  <string name="enter_anchor_name_hint">Anchor names...</string>
+  <string name="enter_anchor_name_hint">Anchor name...</string>
   <string name="resolve_button_text">Resolve</string>
 
   <!-- Strings in the navigate options page -->
   <string name="navigate_title">Navigation</string>
   <string name="navigate_source_text">Enter starting point</string>
   <string name="navigate_dest_text">Enter destination</string>
-  <string name="find_path_text">Find path</string>
+  <string name="find_path_text">Show path</string>
 
 
   <!-- Strings used in exceptions -->

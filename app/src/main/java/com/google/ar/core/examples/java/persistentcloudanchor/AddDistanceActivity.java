@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -35,10 +36,20 @@ public class AddDistanceActivity extends AppCompatActivity {
         EditText anchor2 = (EditText) findViewById(R.id.anchor2);
         EditText dist = (EditText) findViewById(R.id.dist);
 
+        //Get data entered by the user
         String anchor1Name = anchor1.getText().toString();
         String anchor2Name = anchor2.getText().toString();
         float distance = Float.parseFloat(dist.getText().toString());
         distanceController.DistanceSave(anchor1Name, anchor2Name, distance);
+
+        // Clear the text fields
+        anchor1.setText("");
+        anchor2.setText("");
+        dist.setText("");
+
+        // Show a notification message
+        String notificationMessage = "Distance updated";
+        Toast.makeText(getApplicationContext(), notificationMessage, Toast.LENGTH_SHORT).show();
 
         distanceController.printDistances(anchor1Name);
         distanceController.printDistances(anchor2Name);

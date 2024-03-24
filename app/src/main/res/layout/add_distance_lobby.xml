@@ -165,15 +165,16 @@
 
     <TextView
         android:id="@+id/navigate_title"
-        android:layout_width="165dp"
-        android:layout_height="39dp"
+        android:layout_width="160dp"
+        android:layout_height="92dp"
         android:gravity="center"
+        android:paddingTop="60dp"
         android:text="Add Distance"
         android:textAlignment="gravity"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="50dp" />
+        tools:layout_editor_absoluteY="-3dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

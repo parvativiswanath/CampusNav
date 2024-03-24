@@ -35,6 +35,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/enter_anchor_instructions4" />
 
+    <!--    app:layout_constraintTop_toBottomOf="@id/enter_anchor"-->
+<!--    app:layout_constraintStart_toStartOf="parent"-->
+<!--    app:layout_constraintEnd_toEndOf="parent"-->
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/find_path_button"
         android:layout_width="wrap_content"
@@ -46,10 +50,6 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enter_anchor" />
-
-<!--    app:layout_constraintTop_toBottomOf="@id/enter_anchor"-->
-<!--    app:layout_constraintStart_toStartOf="parent"-->
-<!--    app:layout_constraintEnd_toEndOf="parent"-->
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/anchor_start"
@@ -142,15 +142,15 @@
 
     <TextView
         android:id="@+id/navigate_title"
-        android:layout_width="165dp"
-        android:layout_height="39dp"
+        android:layout_width="147dp"
+        android:layout_height="106dp"
         android:gravity="center"
+        android:paddingTop="60dp"
         android:text="@string/navigate_title"
-        android:textAlignment="gravity"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="50dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
