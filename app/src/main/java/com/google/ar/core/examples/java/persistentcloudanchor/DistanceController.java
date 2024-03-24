@@ -11,6 +11,8 @@ import android.util.Log;
 import java.util.List;
 
 public class DistanceController {
+
+    private static final String TAG = "DistanceController";
     private final Context context;
 
     public DistanceController(Context context) {
@@ -22,7 +24,7 @@ public class DistanceController {
     public void printDistances(String anchorName) {
         sharedPreferences =
                 context.getSharedPreferences(CloudAnchorActivity.PREFERENCE_FILE_KEY, Context.MODE_PRIVATE);
-        List<AnchorItem> anchors = retrieveStoredAnchors(sharedPreferences);
+        List<AnchorItem> anchors = ResolveAnchorsLobbyActivity.retrieveStoredAnchors(sharedPreferences);
 
         for (AnchorItem anchor: anchors) {
             if (anchor.getAnchorName().equals(anchorName)) {
@@ -36,7 +38,7 @@ public class DistanceController {
         // retrieveing the stored anchors
         sharedPreferences =
                 context.getSharedPreferences(CloudAnchorActivity.PREFERENCE_FILE_KEY, Context.MODE_PRIVATE);
-        List<AnchorItem> anchors = retrieveStoredAnchors(sharedPreferences);
+        List<AnchorItem> anchors = ResolveAnchorsLobbyActivity.retrieveStoredAnchors(sharedPreferences);
 
         for(AnchorItem anchor: anchors) {
             if (anchor.getAnchorName().equals(SourceName)) {
@@ -47,8 +49,9 @@ public class DistanceController {
             if (anchor.getAnchorName().equals(DestName)){
                 anchor.DistanceUpdate(SourceName, distance);
             }
-            setPreferences(anchors);
+
         }
+        setPreferences(anchors);
     }
     public void setPreferences(List<AnchorItem> anchors){
         //String hostedAnchorId = sharedPreferences.getString(CloudAnchorActivity.HOSTED_ANCHOR_DISTANCES, "");
@@ -56,6 +59,9 @@ public class DistanceController {
         //not sure about the context thing
         sharedPreferences =
                 context.getSharedPreferences(CloudAnchorActivity.PREFERENCE_FILE_KEY, Context.MODE_PRIVATE);
+        String hostedAnchorIds = "";
+        String hostedAnchorNames = "";
+
         StringBuilder hostedAnchorIdsBuilder = new StringBuilder();
         // travering each array and appending it to a json string, hopefully this makes navigation easier
         //look at pieces for the how to load part
@@ -63,15 +69,29 @@ public class DistanceController {
             Gson gson = new Gson();
             String jSonString = gson.toJson(anchor.getEdges());
             hostedAnchorIdsBuilder.append(jSonString).append(";");
+            hostedAnchorIds += anchor.getAnchorId() + ";" ;
+            hostedAnchorNames += anchor.getAnchorName() + ";" ;
+
+
+
         }
 
-        String hostedAnchorIds = hostedAnchorIdsBuilder.toString();
+        String hostedAnchorId = hostedAnchorIdsBuilder.toString();
         //removing the last semicolon
-        if (!hostedAnchorIds.isEmpty()) {
-            hostedAnchorIds = hostedAnchorIds.substring(0, hostedAnchorIds.length() - 1);
+        if (!hostedAnchorId.isEmpty()) {
+            hostedAnchorId = hostedAnchorId.substring(0, hostedAnchorId.length() - 1);
         }
         //Finalllly, setting the string in the shared prefs
-        sharedPreferences.edit().putString(CloudAnchorActivity.HOSTED_ANCHOR_DISTANCES, hostedAnchorIds).apply();
+        sharedPreferences.edit().putString(CloudAnchorActivity.HOSTED_ANCHOR_DISTANCES, hostedAnchorId).apply();
+        sharedPreferences.edit().putString(CloudAnchorActivity.HOSTED_ANCHOR_IDS, hostedAnchorIds).apply();
+        sharedPreferences.edit().putString(CloudAnchorActivity.HOSTED_ANCHOR_NAMES, hostedAnchorNames).apply();
+//        sharedPreferences.edit().putString(CloudAnchorActivity.HOSTED_ANCHOR_MINUTES, hostedAnchorMinutes).apply();
+        String toprint = sharedPreferences.getString(CloudAnchorActivity.HOSTED_ANCHOR_DISTANCES,"DEFYOUFUNYN");
+        Log.d(TAG,toprint);
+        String toprint1 = sharedPreferences.getString(CloudAnchorActivity.HOSTED_ANCHOR_IDS,"ids kittila");
+        Log.d(TAG,"ids :" + toprint1);
+        String toprint2 = sharedPreferences.getString(CloudAnchorActivity.HOSTED_ANCHOR_NAMES,"names kittila");
+        Log.d(TAG,"names :" + toprint2);
 
 
     }

@@ -15,11 +15,13 @@
  */
 package com.google.ar.core.examples.java.persistentcloudanchor;
 
+import android.util.Log;
+
 import java.util.HashMap;
 import java.util.Map;
 /** Container class holding identifying information for an Anchor to be resolved. */
 class AnchorItem {
-
+  private static final String TAG = "AnchorItem";
   private final String anchorId;
   private final String anchorName;
   private final long minutesSinceCreation;
@@ -36,6 +38,12 @@ class AnchorItem {
 
   public void DistanceUpdate(String anchorId, Float distance){
     this.edges.put(anchorId, distance);
+    Log.d(TAG,"Edges updated for id:"+anchorId);
+    for (Map.Entry<String, Float> entry : edges.entrySet()) {
+      String key = entry.getKey();
+      Float value = entry.getValue();
+      Log.d(TAG,"Key: " + key + ", Value: " + value);
+    }
   }
   public String getAnchorName() {
     return anchorName;
