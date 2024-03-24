@@ -18,6 +18,7 @@ package com.google.ar.core.examples.java.persistentcloudanchor;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
@@ -29,6 +30,7 @@ import com.google.ar.core.examples.java.common.helpers.DisplayRotationHelper;
 /** Main Navigation Activity for the Persistent Cloud Anchor Sample. */
 public class MainLobbyActivity extends AppCompatActivity {
 
+  private static final String TAG = "MainLobbyActivity";
   private DisplayRotationHelper displayRotationHelper;
 
   @Override
@@ -43,6 +45,8 @@ public class MainLobbyActivity extends AppCompatActivity {
     resolveButton.setOnClickListener((view) -> onResolveButtonPress());
     Button firebaseButton = findViewById(R.id.firebase_button_text);
     firebaseButton.setOnClickListener((view) -> onFirebaseButtonPress());
+    MaterialButton navigateButton = findViewById(R.id.begin_navigate_button);
+    navigateButton.setOnClickListener((view) -> onNavigateButtonPress());
   }
 
   @Override
@@ -68,10 +72,38 @@ public class MainLobbyActivity extends AppCompatActivity {
     startActivity(intent);
   }
 
-  private void onFirebaseButtonPress(){
+  private void onNavigateButtonPress() {
+    Log.d(TAG, "Navigate button pressed");
+    Intent intent = NavigateLobbyActivity.newIntent(this);
+    startActivity(intent);
+  }
+
+  private void onFirebaseButtonPress() {
     DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference();
+    //SharedPreferences anchorPreferences
     // Assuming you have a data model class named "User" and an instance of that class named "user"
-    databaseRef.child("users").child("userId").setValue("user");
-    databaseRef.setValue("Hello, World!");
+//    databaseRef.child("users").child("userId").setValue("user");
+//    databaseRef.setValue("Hello, World!");
+//    String hostedAnchorIds = anchorPreferences.getString(HOSTED_ANCHOR_IDS, "");
+//    String hostedAnchorNames = anchorPreferences.getString(HOSTED_ANCHOR_NAMES, "");
+
+//    String hostedAnchorIds = "anchor1;anchor2;anchor3";
+//    String hostedAnchorNames = "Anchor One;Anchor Two;Anchor Three";
+//
+//    String[] idsArray = hostedAnchorIds.split(";");
+//    String[] namesArray = hostedAnchorNames.split(";");
+
+    // Assuming the distances are stored in a HashMap inside the AnchorItem class
+      AnchorItem anchorItem = new AnchorItem("123","anchor1",60);
+      String id = anchorItem.getAnchorId();
+      databaseRef.child("myanchors").child(id).setValue(anchorItem);
+
+//    for (int i = 0; i < idsArray.length; i++) {
+//      String id = idsArray[i];
+//      String name = namesArray[i];
+//
+//      databaseRef.child(id).child("id").setValue(id);
+//      databaseRef.child(id).child("name").setValue(name);
+//    }
   }
 }

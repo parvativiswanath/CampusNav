@@ -19,14 +19,15 @@
   <string name="app_name">Persistent Cloud Anchor Sample</string>
   <string name="cancel">Cancel</string>
   <string name="host_button_text">Begin hosting</string>
-  <string name="host_title_text">Host a Cloud Anchor</string>
+  <string name="host_title_text">Mapping</string>
   <!-- [CHAR_LIMIT=NONE] -->
   <string name="host_instructions_text">Scan your space to create a new cloud anchor accessible by others</string>
-  <string name="begin_resolve_button_text">Begin resolving</string>
+  <string name="begin_resolve_button_text">Resolve</string>
+  <string name="begin_navigate_button_text">Navigate</string>
   <!-- [CHAR_LIMIT=NONE] -->
-  <string name="resolve_title_text">Resolve Cloud Anchor(s)</string>
+  <string name="resolve_title_text">Navigation</string>
   <!-- [CHAR_LIMIT=NONE] -->
-  <string name="resolve_instructions_text">Localize this device against previously created Cloud Anchor(s)</string>
+  <string name="resolve_instructions_text">Enter the source and destination and get the shortest path available</string>
   <string name="debug_text">Debug panel</string>
   <string name="user_message_text">User text</string>
 
@@ -36,7 +37,15 @@
   <string name="select_anchors_text">Select from anchors previously hosted from this device</string>
   <string name="enter_anchor_text">Enter anchor ID(s) manually, separated by commas</string>
   <string name="enter_anchor_hint">Anchor IDs...</string>
+  <string name="enter_anchor_name_hint">Anchor names...</string>
   <string name="resolve_button_text">Resolve</string>
+
+  <!-- Strings in the navigate options page -->
+  <string name="navigate_title">Navigation</string>
+  <string name="navigate_source_text">Enter starting point</string>
+  <string name="navigate_dest_text">Enter destination</string>
+  <string name="find_path_text">Find path</string>
+
 
   <!-- Strings used in exceptions -->
   <string name="arcore_unavailable">Please install ARCore.</string>
