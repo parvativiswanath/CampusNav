@@ -45,7 +45,7 @@ public class ResolveAnchorsLobbyActivity extends AppCompatActivity {
     List<AnchorItem> anchors = new ArrayList<>();
     Map<String, Float> edges;
     String hostedAnchorIds = anchorPreferences.getString(CloudAnchorActivity.HOSTED_ANCHOR_IDS, "");
-    String gsonString = anchorPreferences.getString(CloudAnchorActivity.HOSTED_ANCHOR_DISTANCES,"");
+    String hostedAnchorDistances = anchorPreferences.getString(CloudAnchorActivity.HOSTED_ANCHOR_DISTANCES,"");
     String hostedAnchorNames =
         anchorPreferences.getString(CloudAnchorActivity.HOSTED_ANCHOR_NAMES, "");
     String hostedAnchorMinutes =
@@ -54,10 +54,11 @@ public class ResolveAnchorsLobbyActivity extends AppCompatActivity {
       String[] anchorIds = hostedAnchorIds.split(";", -1);
       String[] anchorNames = hostedAnchorNames.split(";", -1);
       String[] anchorMinutes = hostedAnchorMinutes.split(";", -1);
-      //String[] anchorDistances = hostedAnchorDistances.split(";",-1);
+      String[] anchorDistances = hostedAnchorDistances.split(";",-1);
       Type type = new TypeToken<HashMap<String, String>>() {}.getType();
       Gson gson = new Gson();
-      edges = gson.fromJson(gsonString, type);
+      String gsonString;
+
       for (int i = 0; i < anchorIds.length - 1; i++) {
         long timeSinceCreation =
             TimeUnit.MILLISECONDS.toMinutes(System.currentTimeMillis())
@@ -65,6 +66,8 @@ public class ResolveAnchorsLobbyActivity extends AppCompatActivity {
 
         if (timeSinceCreation < 24 * 60) {
           //edges = parseDistances(anchorDistances[i]);
+          gsonString = anchorDistances[i];
+          edges = gson.fromJson(gsonString, type);
           AnchorItem anchor = new AnchorItem(anchorIds[i], anchorNames[i], timeSinceCreation);
           anchor.setEdges(edges);
           anchors.add(anchor);
