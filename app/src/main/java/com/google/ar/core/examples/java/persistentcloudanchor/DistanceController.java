@@ -33,21 +33,34 @@ public class DistanceController {
             }
         }
     }
-
+    // The function that is called when the Distance Update button is pressed.
+    //Gets the sourcec name and dest name and then, updates the edges
     public void DistanceSave(String SourceName, String DestName, Float distance){
         // retrieveing the stored anchors
         sharedPreferences =
                 context.getSharedPreferences(CloudAnchorActivity.PREFERENCE_FILE_KEY, Context.MODE_PRIVATE);
         List<AnchorItem> anchors = ResolveAnchorsLobbyActivity.retrieveStoredAnchors(sharedPreferences);
+        String SourceId = "";
+        String DestId= "";
 
+        //Get Anchor Ids of the source and destination nodes
+        for(AnchorItem anchor: anchors) {
+            if (anchor.getAnchorName().equals(SourceName)) {
+                SourceId = anchor.getAnchorId();
+            }
+            if (anchor.getAnchorName().equals(DestName)){
+                DestId = anchor.getAnchorId();
+            }
+        }
+        //Update the edges
         for(AnchorItem anchor: anchors) {
             if (anchor.getAnchorName().equals(SourceName)) {
                 //ithenthannn brain not workinggggg
                 //call a fn that updates the shit
-                anchor.DistanceUpdate(DestName, distance);
+                anchor.DistanceUpdate(DestId, distance);
             }
             if (anchor.getAnchorName().equals(DestName)){
-                anchor.DistanceUpdate(SourceName, distance);
+                anchor.DistanceUpdate(SourceId, distance);
             }
 
         }
