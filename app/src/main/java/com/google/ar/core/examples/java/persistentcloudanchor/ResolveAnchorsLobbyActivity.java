@@ -29,7 +29,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.lang.reflect.Type;
 import java.util.concurrent.TimeUnit;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 /** Lobby activity for resolving anchors in the Persistent Cloud Anchor Sample. */
 public class ResolveAnchorsLobbyActivity extends AppCompatActivity {
@@ -41,7 +45,7 @@ public class ResolveAnchorsLobbyActivity extends AppCompatActivity {
     List<AnchorItem> anchors = new ArrayList<>();
     Map<String, Float> edges;
     String hostedAnchorIds = anchorPreferences.getString(CloudAnchorActivity.HOSTED_ANCHOR_IDS, "");
-    String hostedAnchorDistances = anchorPreferences.getString(CloudAnchorActivity.HOSTED_ANCHOR_DISTANCES,"");
+    String gsonString = anchorPreferences.getString(CloudAnchorActivity.HOSTED_ANCHOR_DISTANCES,"");
     String hostedAnchorNames =
         anchorPreferences.getString(CloudAnchorActivity.HOSTED_ANCHOR_NAMES, "");
     String hostedAnchorMinutes =
@@ -50,14 +54,17 @@ public class ResolveAnchorsLobbyActivity extends AppCompatActivity {
       String[] anchorIds = hostedAnchorIds.split(";", -1);
       String[] anchorNames = hostedAnchorNames.split(";", -1);
       String[] anchorMinutes = hostedAnchorMinutes.split(";", -1);
-      String[] anchorDistances = hostedAnchorDistances.split(";",-1);
+      //String[] anchorDistances = hostedAnchorDistances.split(";",-1);
+      Type type = new TypeToken<HashMap<String, String>>() {}.getType();
+      Gson gson = new Gson();
+      edges = gson.fromJson(gsonString, type);
       for (int i = 0; i < anchorIds.length - 1; i++) {
         long timeSinceCreation =
             TimeUnit.MILLISECONDS.toMinutes(System.currentTimeMillis())
                 - Long.parseLong(anchorMinutes[i]);
 
         if (timeSinceCreation < 24 * 60) {
-          edges = parseDistances(anchorDistances[i]);
+          //edges = parseDistances(anchorDistances[i]);
           AnchorItem anchor = new AnchorItem(anchorIds[i], anchorNames[i], timeSinceCreation);
           anchor.setEdges(edges);
           anchors.add(anchor);
@@ -68,17 +75,22 @@ public class ResolveAnchorsLobbyActivity extends AppCompatActivity {
     return anchors;
   }
 
-  private static Map<String, Float> parseDistances(String distancesString){
-    Map<String, Float>  edges = new HashMap<>();
-    String[] distancesArray = distancesString.split(",", -1);
-    for(String distanceEntry : distancesArray){
-      String[] parts = distanceEntry.split(":",-1);
-      String neighbor = parts[0];
-      Float distance = Float.parseFloat(parts[1]);
-      edges.put(neighbor, distance);
-    }
-    return edges;
-  }
+//  private static Map<String, Float> parseDistances(String distancesString){
+//    Map<String, Float>  edges = new HashMap<>();
+//    String[] distancesArray = distancesString.split(",", -1);
+//    for(String distanceEntry : distancesArray){
+//      String[] parts = distanceEntry.split(":",-1);
+//      String neighbor = parts[0];
+//      Float distance = Float.parseFloat(parts[1]);
+//      edges.put(neighbor, distance);
+//    }
+//
+//    Type type = new TypeToken<Map<String, String>>(){}.getType();
+//
+//    return edges;
+//  }
+
+
 
   private DisplayRotationHelper displayRotationHelper;
   /** Callback function invoked when the Host Button is pressed. */
