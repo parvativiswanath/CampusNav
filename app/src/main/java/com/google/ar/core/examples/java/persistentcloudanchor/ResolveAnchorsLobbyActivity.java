@@ -72,7 +72,7 @@ public class ResolveAnchorsLobbyActivity extends AppCompatActivity {
     Map<String, Float>  edges = new HashMap<>();
     String[] distancesArray = distancesString.split(",", -1);
     for(String distanceEntry : distancesArray){
-      String[] parts = distanceEntry.split("=",-1);
+      String[] parts = distanceEntry.split(":",-1);
       String neighbor = parts[0];
       Float distance = Float.parseFloat(parts[1]);
       edges.put(neighbor, distance);
