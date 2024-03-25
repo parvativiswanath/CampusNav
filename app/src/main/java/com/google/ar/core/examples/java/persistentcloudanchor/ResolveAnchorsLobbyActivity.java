@@ -43,7 +43,6 @@ public class ResolveAnchorsLobbyActivity extends AppCompatActivity {
 
   public static List<AnchorItem> retrieveStoredAnchors(SharedPreferences anchorPreferences) {
     List<AnchorItem> anchors = new ArrayList<>();
-    Map<String, Float> edges = new HashMap<>();
     String hostedAnchorIds = anchorPreferences.getString(CloudAnchorActivity.HOSTED_ANCHOR_IDS, "");
     String hostedAnchorDistances = anchorPreferences.getString(CloudAnchorActivity.HOSTED_ANCHOR_DISTANCES,"");
     String hostedAnchorNames =
@@ -55,7 +54,9 @@ public class ResolveAnchorsLobbyActivity extends AppCompatActivity {
       String[] anchorNames = hostedAnchorNames.split(";", -1);
       String[] anchorMinutes = hostedAnchorMinutes.split(";", -1);
       String[] anchorDistances = hostedAnchorDistances.split(";",-1);
-      Type type = new TypeToken<HashMap<String, String>>() {}.getType();
+
+      //type handling to initiate gson -> map change
+      Type type = new TypeToken<HashMap<String, Float>>() {}.getType();
       Gson gson = new Gson();
       String gsonString;
       for (int i = 0; i < anchorIds.length - 1; i++) {
@@ -65,11 +66,13 @@ public class ResolveAnchorsLobbyActivity extends AppCompatActivity {
         if (timeSinceCreation < 24 * 60) {
           //edges = parseDistances(anchorDistances[i]);
           gsonString = anchorDistances[i];
-          Map<String, String> tempEdges = gson.fromJson(gsonString, type);
+          //Map<String, String> tempEdges = gson.fromJson(gsonString, type);
+          Map<String, Float> edges = gson.fromJson(gsonString, type);
+
           // Convert String values to Float
-          for (Map.Entry<String, String> entry : tempEdges.entrySet()) {
-            edges.put(entry.getKey(), Float.parseFloat(entry.getValue()));
-          }
+//          for (Map.Entry<String, String> entry : tempEdges.entrySet()) {
+//            edges.put(entry.getKey(), Float.parseFloat(entry.getValue()));
+//          }
 //          edges = gson.fromJson(gsonString, type);
           AnchorItem anchor = new AnchorItem(anchorIds[i], anchorNames[i], timeSinceCreation);
           anchor.setEdges(edges);
