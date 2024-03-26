@@ -85,6 +85,7 @@ public class CloudAnchorActivity extends AppCompatActivity implements GLSurfaceV
   private static final String ALLOW_SHARE_IMAGES_KEY = "ALLOW_SHARE_IMAGES";
   protected static final String PREFERENCE_FILE_KEY = "CLOUD_ANCHOR_PREFERENCES";
   protected static final String HOSTED_ANCHOR_IDS = "anchor_ids";
+  protected static final String HOSTED_ANCHOR_DETAILS = "anchor_details";
   protected static final String HOSTED_ANCHOR_DISTANCES = "anchor_edges";
   protected static final String HOSTED_ANCHOR_NAMES = "anchor_names";
   protected static final String HOSTED_ANCHOR_MINUTES = "anchor_minutes";
@@ -164,6 +165,7 @@ public class CloudAnchorActivity extends AppCompatActivity implements GLSurfaceV
 
   private static void saveAnchorToStorage(
       String anchorId, String anchorNickname, SharedPreferences anchorPreferences) {
+//    AnchorItem
     String hostedAnchorIds = anchorPreferences.getString(HOSTED_ANCHOR_IDS, "");
     String hostedAnchorNames = anchorPreferences.getString(HOSTED_ANCHOR_NAMES, "");
     String hostedAnchorMinutes = anchorPreferences.getString(HOSTED_ANCHOR_MINUTES, "");
