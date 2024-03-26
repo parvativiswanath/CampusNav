@@ -4,11 +4,18 @@ import static com.google.ar.core.examples.java.persistentcloudanchor.CloudAnchor
 
 import android.content.SharedPreferences;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 
 public class AnchorDataStore {
@@ -42,7 +49,14 @@ public class AnchorDataStore {
         Gson gson = new Gson();
         Type type = new TypeToken<List<AnchorItem>>() {}.getType();
         String hostedAnchorDetails = anchorPreferences.getString(HOSTED_ANCHOR_DETAILS, "");
-        return gson.fromJson(hostedAnchorDetails,type );
+        if(!hostedAnchorDetails.isEmpty())
+        {
+            return gson.fromJson(hostedAnchorDetails,type );
+        }
+        else {
+            return new ArrayList<AnchorItem>();
+            }
+        }
     }
 
     //updating the distance
