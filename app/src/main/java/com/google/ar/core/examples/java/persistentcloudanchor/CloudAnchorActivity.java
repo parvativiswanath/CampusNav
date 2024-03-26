@@ -84,10 +84,7 @@ public class CloudAnchorActivity extends AppCompatActivity implements GLSurfaceV
   private static final String QUALITY_SUFFICIENT_GOOD_STRING = "SUFFICIENT-GOOD";
   private static final String ALLOW_SHARE_IMAGES_KEY = "ALLOW_SHARE_IMAGES";
   protected static final String PREFERENCE_FILE_KEY = "CLOUD_ANCHOR_PREFERENCES";
-  protected static final String HOSTED_ANCHOR_IDS = "anchor_ids";
-  protected static final String HOSTED_ANCHOR_DISTANCES = "anchor_edges";
-  protected static final String HOSTED_ANCHOR_NAMES = "anchor_names";
-  protected static final String HOSTED_ANCHOR_MINUTES = "anchor_minutes";
+  protected static final String HOSTED_ANCHOR_DETAILS = "anchor_details";
   protected static final double MIN_DISTANCE = 0.2f;
   protected static final double MAX_DISTANCE = 10.0f;
 
@@ -164,20 +161,25 @@ public class CloudAnchorActivity extends AppCompatActivity implements GLSurfaceV
 
   private static void saveAnchorToStorage(
       String anchorId, String anchorNickname, SharedPreferences anchorPreferences) {
-    String hostedAnchorIds = anchorPreferences.getString(HOSTED_ANCHOR_IDS, "");
-    String hostedAnchorNames = anchorPreferences.getString(HOSTED_ANCHOR_NAMES, "");
-    String hostedAnchorMinutes = anchorPreferences.getString(HOSTED_ANCHOR_MINUTES, "");
-    hostedAnchorIds += anchorId + ";";
-    hostedAnchorNames += anchorNickname + ";";
-    hostedAnchorMinutes += TimeUnit.MILLISECONDS.toMinutes(System.currentTimeMillis()) + ";";
-    anchorPreferences.edit().putString(HOSTED_ANCHOR_IDS, hostedAnchorIds).apply();
-    anchorPreferences.edit().putString(HOSTED_ANCHOR_NAMES, hostedAnchorNames).apply();
-    anchorPreferences.edit().putString(HOSTED_ANCHOR_MINUTES, hostedAnchorMinutes).apply();
-  }
 
-  private static int getNumStoredAnchors(SharedPreferences anchorPreferences) {
-    String hostedAnchorIds = anchorPreferences.getString(CloudAnchorActivity.HOSTED_ANCHOR_IDS, "");
-    return hostedAnchorIds.split(";", -1).length - 1;
+    long anchorMinutes = TimeUnit.MILLISECONDS.toMinutes(System.currentTimeMillis());
+    //AnchorItem
+    // get existing data
+    // append
+    // store
+    AnchorItem newAnchor = new AnchorItem(anchorId,anchorNickname,anchorMinutes);
+    AnchorDataStore.appendToExistingAnchorData(newAnchor,anchorPreferences);
+
+
+//    String hostedAnchorIds = anchorPreferences.getString(HOSTED_ANCHOR_IDS, "");
+//    String hostedAnchorNames = anchorPreferences.getString(HOSTED_ANCHOR_NAMES, "");
+//    String hostedAnchorMinutes = anchorPreferences.getString(HOSTED_ANCHOR_MINUTES, "");
+//    hostedAnchorIds += anchorId + ";";
+//    hostedAnchorNames += anchorNickname + ";";
+//    hostedAnchorMinutes += TimeUnit.MILLISECONDS.toMinutes(System.currentTimeMillis()) + ";";
+//    anchorPreferences.edit().putString(HOSTED_ANCHOR_IDS, hostedAnchorIds).apply();
+//    anchorPreferences.edit().putString(HOSTED_ANCHOR_NAMES, hostedAnchorNames).apply();
+//    anchorPreferences.edit().putString(HOSTED_ANCHOR_MINUTES, hostedAnchorMinutes).apply();
   }
 
   @Override
@@ -728,7 +730,7 @@ public class CloudAnchorActivity extends AppCompatActivity implements GLSurfaceV
       // Supply num input as an argument.
       Bundle args = new Bundle();
       args.putString(
-          "nickname", getString(R.string.nickname_default, getNumStoredAnchors(sharedPreferences)));
+          "nickname", getString(R.string.nickname_default, AnchorDataStore.getNumCloudAnchors(sharedPreferences)));
       hostDialogFragment.setOkListener(this::onAnchorNameEntered);
       hostDialogFragment.setArguments(args);
       hostDialogFragment.show(getSupportFragmentManager(), "HostDialog");

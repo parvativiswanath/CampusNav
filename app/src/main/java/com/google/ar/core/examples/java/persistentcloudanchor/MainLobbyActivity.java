@@ -16,8 +16,6 @@
 
 package com.google.ar.core.examples.java.persistentcloudanchor;
 
-import static com.google.ar.core.examples.java.persistentcloudanchor.ResolveAnchorsLobbyActivity.retrieveStoredAnchors;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -82,6 +80,9 @@ public class MainLobbyActivity extends AppCompatActivity {
 
   private void onAddDistanceButtonPress() {
     Intent intent = AddDistanceActivity.newIntent(this);
+//    SharedPreferences sharedPreferences =
+//            this.getSharedPreferences(CloudAnchorActivity.PREFERENCE_FILE_KEY, Context.MODE_PRIVATE);
+//    AnchorDataStore.storeToSharedPreferences(AnchorDataStore.dummyData(), sharedPreferences);
     startActivity(intent);
   }
 
@@ -97,36 +98,19 @@ public class MainLobbyActivity extends AppCompatActivity {
     startActivity(intent);
   }
 
+  //Store Data to Firebase
   private void onFirebaseButtonPress() {
+      anchorPreferences = this.getSharedPreferences(CloudAnchorActivity.PREFERENCE_FILE_KEY, Context.MODE_PRIVATE);
+      // retrieve data stored in SharedPreferences
+      List<AnchorItem> anchors = AnchorDataStore.getDataFromSharedPreferences(anchorPreferences);
 
-    anchorPreferences = this.getSharedPreferences(CloudAnchorActivity.PREFERENCE_FILE_KEY, Context.MODE_PRIVATE);
-    //List<AnchorItem> anchors = new ArrayList<>();
-
-    DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference();
-
-    String hostedAnchorIds = anchorPreferences.getString(CloudAnchorActivity.HOSTED_ANCHOR_IDS, "");
-    String hostedAnchorNames =
-            anchorPreferences.getString(CloudAnchorActivity.HOSTED_ANCHOR_NAMES, "");
-    String hostedAnchorMinutes =
-            anchorPreferences.getString(CloudAnchorActivity.HOSTED_ANCHOR_MINUTES, "");
-    String hostedAnchorEdges = anchorPreferences.getString(CloudAnchorActivity.HOSTED_ANCHOR_DISTANCES, "");
-    if (!hostedAnchorIds.isEmpty()) {
-      String[] anchorIds = hostedAnchorIds.split(";", -1);
-      String[] anchorNames = hostedAnchorNames.split(";", -1);
-      String[] anchorMinutes = hostedAnchorMinutes.split(";", -1);
-      String[] jsonStrings = hostedAnchorEdges.split(";");
-      for (int i = 0; i < anchorIds.length - 1; i++) {
-        long timeSinceCreation =
-                TimeUnit.MILLISECONDS.toMinutes(System.currentTimeMillis())
-                        - Long.parseLong(anchorMinutes[i]);
-        if (timeSinceCreation < 24 * 60) {
-          Gson gson = new Gson();
-          Map<String, Float> edges = gson.fromJson(jsonStrings[i], new TypeToken<Map<String, Float>>() {}.getType());
-          AnchorItem anchor = new AnchorItem(anchorIds[i], anchorNames[i], timeSinceCreation);
-          anchor.setEdges(edges);
-          databaseRef.child("myanchors").child(anchorIds[i]).setValue(anchor);
-        }
+      DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference();
+      //Store each data to Firebase
+      for (AnchorItem anchor : anchors) {
+          String anchorId = anchor.getAnchorId();
+          databaseRef.child("myanchors").child(anchorId).setValue(anchor.asMap());
       }
-    }
   }
-}
+    }
+
+

@@ -30,13 +30,17 @@ public class NavigateLobbyActivity extends AppCompatActivity {
         displayRotationHelper = new DisplayRotationHelper(this);
         MaterialButton findPathButton = findViewById(R.id.find_path_button);
         findPathButton.setOnClickListener((view) -> onFindPathButtonPress());
-
     }
 
     private void onFindPathButtonPress() {
         Log.d(TAG, "Find path button pressed");
         EditText start = (EditText) findViewById(R.id.anchor_start);
         EditText dest = (EditText) findViewById(R.id.anchor_dest);
-        //ShortestPath.findShortestPath(start,dest);
+        NavigationManager findpath = new NavigationManager(start.getText().toString(),dest.getText().toString());
+        //change to class member so as to access it in visualisation part
+        List<String> path = findpath.findShortestPath();
+        String pathToPrint = path.toString();
+        Log.d("Navigation Result", pathToPrint);
+
     }
 }

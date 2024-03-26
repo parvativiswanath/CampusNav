@@ -17,16 +17,29 @@ package com.google.ar.core.examples.java.persistentcloudanchor;
 
 import android.util.Log;
 
+import com.google.ar.core.Anchor;
+
 import java.util.HashMap;
 import java.util.Map;
 /** Container class holding identifying information for an Anchor to be resolved. */
-class AnchorItem {
-  private static final String TAG = "AnchorItem";
-  private final String anchorId;
-  private final String anchorName;
-  private final long minutesSinceCreation;
+public class AnchorItem extends Anchor {
+
+  public static final String TAG = "AnchorItem";
+  public final String anchorId;
+  public final String anchorName;
+  public final long minutesSinceCreation;
   private boolean selected;
-  private Map<String, Float> edges;
+  public Map<String, Float> edges;
+
+  public HashMap<String, Object> asMap() {
+    HashMap<String, Object> map = new HashMap<String, Object>();
+    map.put("anchorId", anchorId);
+    map.put("anchorName", anchorName);
+    map.put("minutesSinceCreation", minutesSinceCreation);
+    map.put("edges", edges);
+
+    return map;
+  }
 
   public AnchorItem(String anchorId, String anchorName, long minutesSinceCreation) {
     this.anchorId = anchorId;
