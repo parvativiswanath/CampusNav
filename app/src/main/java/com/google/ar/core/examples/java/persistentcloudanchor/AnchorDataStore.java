@@ -61,4 +61,8 @@ public class AnchorDataStore {
     //updating the distance
     //public static
 
+    public static int getNumCloudAnchors(SharedPreferences sharedPreferences) {
+        return getDataFromSharedPreferences(sharedPreferences).size();
+    }
+
 }
