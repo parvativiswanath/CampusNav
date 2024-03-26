@@ -165,16 +165,25 @@ public class CloudAnchorActivity extends AppCompatActivity implements GLSurfaceV
 
   private static void saveAnchorToStorage(
       String anchorId, String anchorNickname, SharedPreferences anchorPreferences) {
-//    AnchorItem
-    String hostedAnchorIds = anchorPreferences.getString(HOSTED_ANCHOR_IDS, "");
-    String hostedAnchorNames = anchorPreferences.getString(HOSTED_ANCHOR_NAMES, "");
-    String hostedAnchorMinutes = anchorPreferences.getString(HOSTED_ANCHOR_MINUTES, "");
-    hostedAnchorIds += anchorId + ";";
-    hostedAnchorNames += anchorNickname + ";";
-    hostedAnchorMinutes += TimeUnit.MILLISECONDS.toMinutes(System.currentTimeMillis()) + ";";
-    anchorPreferences.edit().putString(HOSTED_ANCHOR_IDS, hostedAnchorIds).apply();
-    anchorPreferences.edit().putString(HOSTED_ANCHOR_NAMES, hostedAnchorNames).apply();
-    anchorPreferences.edit().putString(HOSTED_ANCHOR_MINUTES, hostedAnchorMinutes).apply();
+
+    long anchorMinutes = TimeUnit.MILLISECONDS.toMinutes(System.currentTimeMillis());
+    //AnchorItem
+    // get existing data
+    // append
+    // store
+    AnchorItem newAnchor = new AnchorItem(anchorId,anchorNickname,anchorMinutes);
+    AnchorDataStore.appendToExistingAnchorData(newAnchor,anchorPreferences);
+
+
+//    String hostedAnchorIds = anchorPreferences.getString(HOSTED_ANCHOR_IDS, "");
+//    String hostedAnchorNames = anchorPreferences.getString(HOSTED_ANCHOR_NAMES, "");
+//    String hostedAnchorMinutes = anchorPreferences.getString(HOSTED_ANCHOR_MINUTES, "");
+//    hostedAnchorIds += anchorId + ";";
+//    hostedAnchorNames += anchorNickname + ";";
+//    hostedAnchorMinutes += TimeUnit.MILLISECONDS.toMinutes(System.currentTimeMillis()) + ";";
+//    anchorPreferences.edit().putString(HOSTED_ANCHOR_IDS, hostedAnchorIds).apply();
+//    anchorPreferences.edit().putString(HOSTED_ANCHOR_NAMES, hostedAnchorNames).apply();
+//    anchorPreferences.edit().putString(HOSTED_ANCHOR_MINUTES, hostedAnchorMinutes).apply();
   }
 
   private static int getNumStoredAnchors(SharedPreferences anchorPreferences) {
