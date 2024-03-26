@@ -53,10 +53,10 @@ public class ResolveAnchorsLobbyActivity extends AppCompatActivity {
       String[] anchorIds = hostedAnchorIds.split(";", -1);
       String[] anchorNames = hostedAnchorNames.split(";", -1);
       String[] anchorMinutes = hostedAnchorMinutes.split(";", -1);
-      String[] anchorDistances = hostedAnchorDistances.split(";",-1);
+      String[] anchorDistances = hostedAnchorDistances.split(";");
 
       //type handling to initiate gson -> map change
-      Type type = new TypeToken<HashMap<String, Float>>() {}.getType();
+      Type type = new TypeToken<Map<String, Float>>() {}.getType();
       Gson gson = new Gson();
       String gsonString;
       for (int i = 0; i < anchorIds.length - 1; i++) {
