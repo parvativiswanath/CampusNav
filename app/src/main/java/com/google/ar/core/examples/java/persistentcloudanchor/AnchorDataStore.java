@@ -16,7 +16,7 @@ public class AnchorDataStore {
     // anchorItem -> Json String
     // get the stored data from shared preferences ad then append new anchorItem, and then store it again
 
-    public static void getExistingAnchorData(AnchorItem anchor, SharedPreferences anchorPreferences){
+    public static void appendToExistingAnchorData(AnchorItem anchor, SharedPreferences anchorPreferences){
 
         // to be continued.......
         Gson gson  = new Gson();
