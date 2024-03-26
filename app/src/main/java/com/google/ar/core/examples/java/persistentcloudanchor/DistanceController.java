@@ -1,7 +1,5 @@
 package com.google.ar.core.examples.java.persistentcloudanchor;
 
-import static com.google.ar.core.examples.java.persistentcloudanchor.ResolveAnchorsLobbyActivity.retrieveStoredAnchors;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import com.google.gson.Gson;
@@ -24,7 +22,7 @@ public class DistanceController {
     public void printDistances(String anchorName) {
         sharedPreferences =
                 context.getSharedPreferences(CloudAnchorActivity.PREFERENCE_FILE_KEY, Context.MODE_PRIVATE);
-        List<AnchorItem> anchors = ResolveAnchorsLobbyActivity.retrieveStoredAnchors(sharedPreferences);
+        List<AnchorItem> anchors = AnchorDataStore.getDataFromSharedPreferences(sharedPreferences);
 
         for (AnchorItem anchor: anchors) {
             if (anchor.getAnchorName().equals(anchorName)) {
@@ -67,6 +65,7 @@ public class DistanceController {
         }
         AnchorDataStore.storeToSharedPreferences(anchors, sharedPreferences);
     }
+
 //    public void setPreferences(List<AnchorItem> anchors){
 //        //String hostedAnchorId = sharedPreferences.getString(CloudAnchorActivity.HOSTED_ANCHOR_DISTANCES, "");
 //        //connecting to the shared preferences file that has the data

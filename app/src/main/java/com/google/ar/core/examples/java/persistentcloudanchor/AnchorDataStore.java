@@ -54,11 +54,11 @@ public class AnchorDataStore {
             return gson.fromJson(hostedAnchorDetails,type );
         }
         else {
-            return new ArrayList<AnchorItem>();
+            return new ArrayList<>();
             }
         }
-    }
 
     //updating the distance
     //public static
 
+}

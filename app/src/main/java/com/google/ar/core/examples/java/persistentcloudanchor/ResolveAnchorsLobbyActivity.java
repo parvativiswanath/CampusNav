@@ -16,6 +16,8 @@
 
 package com.google.ar.core.examples.java.persistentcloudanchor;
 
+import static com.google.ar.core.examples.java.persistentcloudanchor.AnchorDataStore.getDataFromSharedPreferences;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -41,48 +43,48 @@ public class ResolveAnchorsLobbyActivity extends AppCompatActivity {
   private SharedPreferences sharedPreferences;
   List<AnchorItem> selectedAnchors;
 
-  public static List<AnchorItem> retrieveStoredAnchors(SharedPreferences anchorPreferences) {
-    List<AnchorItem> anchors = new ArrayList<>();
-    String hostedAnchorIds = anchorPreferences.getString(CloudAnchorActivity.HOSTED_ANCHOR_IDS, "");
-    String hostedAnchorDistances = anchorPreferences.getString(CloudAnchorActivity.HOSTED_ANCHOR_DISTANCES,"");
-    String hostedAnchorNames =
-        anchorPreferences.getString(CloudAnchorActivity.HOSTED_ANCHOR_NAMES, "");
-    String hostedAnchorMinutes =
-        anchorPreferences.getString(CloudAnchorActivity.HOSTED_ANCHOR_MINUTES, "");
-    if (!hostedAnchorIds.isEmpty()) {
-      String[] anchorIds = hostedAnchorIds.split(";", -1);
-      String[] anchorNames = hostedAnchorNames.split(";", -1);
-      String[] anchorMinutes = hostedAnchorMinutes.split(";", -1);
-      String[] anchorDistances = hostedAnchorDistances.split(";");
-
-      //type handling to initiate gson -> map change
-      Type type = new TypeToken<Map<String, Float>>() {}.getType();
-      Gson gson = new Gson();
-      String gsonString;
-      for (int i = 0; i < anchorIds.length - 1; i++) {
-        long timeSinceCreation =
-            TimeUnit.MILLISECONDS.toMinutes(System.currentTimeMillis())
-                - Long.parseLong(anchorMinutes[i]);
-        if (timeSinceCreation < 24 * 60) {
-          //edges = parseDistances(anchorDistances[i]);
-          gsonString = anchorDistances[i];
-          //Map<String, String> tempEdges = gson.fromJson(gsonString, type);
-          Map<String, Float> edges = gson.fromJson(gsonString, type);
-
-          // Convert String values to Float
-//          for (Map.Entry<String, String> entry : tempEdges.entrySet()) {
-//            edges.put(entry.getKey(), Float.parseFloat(entry.getValue()));
-//          }
-//          edges = gson.fromJson(gsonString, type);
-          AnchorItem anchor = new AnchorItem(anchorIds[i], anchorNames[i], timeSinceCreation);
-          anchor.setEdges(edges);
-          anchors.add(anchor);
-
-        }
-      }
-    }
-    return anchors;
-  }
+//  public static List<AnchorItem> retrieveStoredAnchors(SharedPreferences anchorPreferences) {
+//    List<AnchorItem> anchors = new ArrayList<>();
+//    String hostedAnchorIds = anchorPreferences.getString(CloudAnchorActivity.HOSTED_ANCHOR_IDS, "");
+//    String hostedAnchorDistances = anchorPreferences.getString(CloudAnchorActivity.HOSTED_ANCHOR_DISTANCES,"");
+//    String hostedAnchorNames =
+//        anchorPreferences.getString(CloudAnchorActivity.HOSTED_ANCHOR_NAMES, "");
+//    String hostedAnchorMinutes =
+//        anchorPreferences.getString(CloudAnchorActivity.HOSTED_ANCHOR_MINUTES, "");
+//    if (!hostedAnchorIds.isEmpty()) {
+//      String[] anchorIds = hostedAnchorIds.split(";", -1);
+//      String[] anchorNames = hostedAnchorNames.split(";", -1);
+//      String[] anchorMinutes = hostedAnchorMinutes.split(";", -1);
+//      String[] anchorDistances = hostedAnchorDistances.split(";");
+//
+//      //type handling to initiate gson -> map change
+//      Type type = new TypeToken<Map<String, Float>>() {}.getType();
+//      Gson gson = new Gson();
+//      String gsonString;
+//      for (int i = 0; i < anchorIds.length - 1; i++) {
+//        long timeSinceCreation =
+//            TimeUnit.MILLISECONDS.toMinutes(System.currentTimeMillis())
+//                - Long.parseLong(anchorMinutes[i]);
+//        if (timeSinceCreation < 24 * 60) {
+//          //edges = parseDistances(anchorDistances[i]);
+//          gsonString = anchorDistances[i];
+//          //Map<String, String> tempEdges = gson.fromJson(gsonString, type);
+//          Map<String, Float> edges = gson.fromJson(gsonString, type);
+//
+//          // Convert String values to Float
+////          for (Map.Entry<String, String> entry : tempEdges.entrySet()) {
+////            edges.put(entry.getKey(), Float.parseFloat(entry.getValue()));
+////          }
+////          edges = gson.fromJson(gsonString, type);
+//          AnchorItem anchor = new AnchorItem(anchorIds[i], anchorNames[i], timeSinceCreation);
+//          anchor.setEdges(edges);
+//          anchors.add(anchor);
+//
+//        }
+//      }
+//    }
+//    return anchors;
+//  }
 
 //  private static Map<String, Float> parseDistances(String distancesString){
 //    Map<String, Float>  edges = new HashMap<>();
@@ -116,7 +118,7 @@ public class ResolveAnchorsLobbyActivity extends AppCompatActivity {
     resolveButton.setOnClickListener((view) -> onResolveButtonPress());
     sharedPreferences =
         getSharedPreferences(CloudAnchorActivity.PREFERENCE_FILE_KEY, Context.MODE_PRIVATE);
-    selectedAnchors = retrieveStoredAnchors(sharedPreferences);
+    selectedAnchors = AnchorDataStore.getDataFromSharedPreferences(sharedPreferences);
     spinner = (Spinner) findViewById(R.id.select_anchors_spinner);
     MultiSelectItem adapter = new MultiSelectItem(this, 0, selectedAnchors, spinner);
     spinner.setAdapter(adapter);
