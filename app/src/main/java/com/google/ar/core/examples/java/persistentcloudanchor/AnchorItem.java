@@ -24,12 +24,22 @@ import java.util.Map;
 /** Container class holding identifying information for an Anchor to be resolved. */
 public class AnchorItem extends Anchor {
 
-  private static final String TAG = "AnchorItem";
-  private final String anchorId;
-  private final String anchorName;
-  private final long minutesSinceCreation;
+  public static final String TAG = "AnchorItem";
+  public final String anchorId;
+  public final String anchorName;
+  public final long minutesSinceCreation;
   private boolean selected;
-  private Map<String, Float> edges;
+  public Map<String, Float> edges;
+
+  public HashMap<String, Object> asMap() {
+    HashMap<String, Object> map = new HashMap<String, Object>();
+    map.put("anchorId", anchorId);
+    map.put("anchorName", anchorName);
+    map.put("minutesSinceCreation", minutesSinceCreation);
+    map.put("edges", edges);
+
+    return map;
+  }
 
   public AnchorItem(String anchorId, String anchorName, long minutesSinceCreation) {
     this.anchorId = anchorId;

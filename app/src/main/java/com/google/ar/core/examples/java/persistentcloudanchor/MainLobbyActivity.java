@@ -108,7 +108,7 @@ public class MainLobbyActivity extends AppCompatActivity {
       //Store each data to Firebase
       for (AnchorItem anchor : anchors) {
           String anchorId = anchor.getAnchorId();
-          databaseRef.child("myanchors").child(anchorId).setValue(anchor);
+          databaseRef.child("myanchors").child(anchorId).setValue(anchor.asMap());
       }
   }
     }
