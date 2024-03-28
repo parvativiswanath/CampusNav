@@ -18,6 +18,10 @@ package com.google.ar.core.examples.java.persistentcloudanchor;
 import android.util.Log;
 
 import com.google.ar.core.Anchor;
+import com.google.firebase.database.DataSnapshot;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import java.lang.reflect.Type;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,15 +35,6 @@ public class AnchorItem extends Anchor {
   private boolean selected;
   public Map<String, Float> edges;
 
-  public HashMap<String, Object> asMap() {
-    HashMap<String, Object> map = new HashMap<String, Object>();
-    map.put("anchorId", anchorId);
-    map.put("anchorName", anchorName);
-    map.put("minutesSinceCreation", minutesSinceCreation);
-    map.put("edges", edges);
-
-    return map;
-  }
 
   public AnchorItem(String anchorId, String anchorName, long minutesSinceCreation) {
     this.anchorId = anchorId;
@@ -58,6 +53,40 @@ public class AnchorItem extends Anchor {
       Log.d(TAG,"Key: " + key + ", Value: " + value);
     }
   }
+  public HashMap<String, Object> asMap() {
+    HashMap<String, Object> map = new HashMap<String, Object>();
+    map.put("anchorId", anchorId);
+    map.put("anchorName", anchorName);
+    map.put("minutesSinceCreation", minutesSinceCreation);
+    map.put("edges", edges);
+
+    return map;
+  }
+
+  public AnchorItem(DataSnapshot snapshot){
+    this.anchorId = snapshot.child("anchorId").getValue(String.class);
+    this.anchorName = snapshot.child("anchorName").getValue(String.class);
+    DataSnapshot minutesSinceCreationSnapshot = snapshot.child("minutesSinceCreation");
+    if (minutesSinceCreationSnapshot.exists()) {
+      this.minutesSinceCreation = minutesSinceCreationSnapshot.getValue(Integer.class);
+    } else {
+      // Handle the case when minutesSinceCreation is null or missing
+      this.minutesSinceCreation = 0; // Or any default value that makes sense in your context
+    }
+    String distancesJson = snapshot.child("edges").getValue(String.class);
+    if (distancesJson != null) {
+      Type type = new TypeToken<HashMap<String, Float>>() {}.getType();
+      this.edges = new Gson().fromJson(distancesJson, type);
+    } else {
+      // Handle the case when distances are null or missing
+      this.edges = new HashMap<>();
+    }
+
+
+
+
+  }
+
   public String getAnchorName() {
     return anchorName;
   }
