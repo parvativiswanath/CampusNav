@@ -46,10 +46,9 @@ public class NavigationManager {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 //whenever firebase data is updated, anchors list data is also updated
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    AnchorItem anchorItem = snapshot.getValue(AnchorItem.class);
-                    if (anchorItem != null) {
-                        anchorsf.add(anchorItem);
-                    }
+                    AnchorItem anchorItem = new AnchorItem(snapshot);
+                    anchorsf.add(anchorItem);
+
                 }
             }
 
