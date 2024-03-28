@@ -71,6 +71,7 @@ public class AnchorDataStore {
         anchors.add(new AnchorItem("1", "bed", 12));
         anchors.add(new AnchorItem("2", "mat", 14));
         anchors.add(new AnchorItem("3", "mirror", 16));
+        anchors.add(new AnchorItem("4", "wall", 24));
 
         return anchors;
     }
