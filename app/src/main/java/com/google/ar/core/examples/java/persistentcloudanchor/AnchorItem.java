@@ -19,10 +19,12 @@ import android.util.Log;
 
 import com.google.ar.core.Anchor;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 /** Container class holding identifying information for an Anchor to be resolved. */
@@ -73,13 +75,19 @@ public class AnchorItem extends Anchor {
       // Handle the case when minutesSinceCreation is null or missing
       this.minutesSinceCreation = 0; // Or any default value that makes sense in your context
     }
-    String distancesJson = snapshot.child("edges").getValue(String.class);
-    if (distancesJson != null) {
-      Type type = new TypeToken<HashMap<String, Float>>() {}.getType();
-      this.edges = new Gson().fromJson(distancesJson, type);
-    } else {
-      // Handle the case when distances are null or missing
-      this.edges = new HashMap<>();
+    //ERRORRRRRRRRRRRRRRR(LINE 77)
+//    HashMap<String, Float> edges = new HashMap<>();
+    this.edges = new HashMap<>();
+    DataSnapshot edgesSnapshot = snapshot.child("edges");
+    if(edgesSnapshot.exists()){
+      for(DataSnapshot edgeSnapshot : edgesSnapshot.getChildren()){
+        String key = edgeSnapshot.getKey();
+        Float value = edgeSnapshot.getValue(Float.class);
+        if(key!= null && value != null){
+          this.edges.put(key,value);
+        }
+      }
+
     }
 
 
