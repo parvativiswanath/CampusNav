@@ -38,9 +38,11 @@ public class NavigateLobbyActivity extends AppCompatActivity {
         EditText dest = (EditText) findViewById(R.id.anchor_dest);
         NavigationManager findpath = new NavigationManager(start.getText().toString(),dest.getText().toString());
         //change to class member so as to access it in visualisation part
-        List<String> path = findpath.findShortestPath();
-        String pathToPrint = path.toString();
-        Log.d("Navigation Result", pathToPrint);
+        ArrayList<String> path = findpath.findShortestPath();
+//        String pathToPrint = path.toString();
+//        Log.d("Navigation Result", pathToPrint);
+        Intent intent = CloudAnchorActivity.newResolvingIntent(this,path);
+        startActivity(intent);
 
     }
 }

@@ -656,6 +656,7 @@ public class CloudAnchorActivity extends AppCompatActivity implements GLSurfaceV
           String.format(
               "Attempting to resolve %d anchor(s): %s",
               unresolvedAnchorIds.size(), unresolvedAnchorIds));
+      //calling function for resolving
       for (String cloudAnchorId : unresolvedAnchorIds) {
         cloudAnchorManager.resolveCloudAnchor(cloudAnchorId, resolveListener);
       }

@@ -75,7 +75,7 @@ public class NavigationManager {
         return graphMap;
     }
 
-    public List<String> findShortestPath(){
+    public ArrayList<String> findShortestPath(){
         String start = this.Source;
         String Dest = this.Destination;
         Map<String, Float> distances = new HashMap<>();
@@ -104,7 +104,7 @@ public class NavigationManager {
         }
 
         // Reconstruct the shortest path.
-        List<String> shortestPath = new ArrayList<>();
+        ArrayList<String> shortestPath = new ArrayList<>();
         String currentNode = Dest;
         while (currentNode != null) {
             shortestPath.add(currentNode);
