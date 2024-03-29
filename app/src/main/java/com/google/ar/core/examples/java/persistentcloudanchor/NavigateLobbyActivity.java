@@ -45,4 +45,5 @@ public class NavigateLobbyActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
+
 }
