@@ -40,6 +40,7 @@ public class NavigationManager {
     // insert code load data from firebase and then store them to anchors
     public ArrayList<AnchorItem> getAnchorsFromFirebase() {
         ArrayList<AnchorItem> anchorsf = new ArrayList<>();
+//        HashMap<String, Object> data = new HashMap<>();
         DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("myanchors");
         databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
