@@ -37,6 +37,11 @@ public class AnchorItem extends Anchor {
   private boolean selected;
   public Map<String, Float> edges;
 
+  public AnchorItem() {
+    anchorName = "";
+    anchorId = "";
+    minutesSinceCreation = 0;
+  }
 
   public AnchorItem(String anchorId, String anchorName, long minutesSinceCreation) {
     this.anchorId = anchorId;

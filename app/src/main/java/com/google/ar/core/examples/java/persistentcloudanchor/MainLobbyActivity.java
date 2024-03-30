@@ -111,6 +111,6 @@ public class MainLobbyActivity extends AppCompatActivity {
           databaseRef.child("myanchors").child(anchorId).setValue(anchor.asMap());
       }
   }
-    }
+}
 
 
