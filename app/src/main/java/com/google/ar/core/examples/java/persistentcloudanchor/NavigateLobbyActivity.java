@@ -41,6 +41,8 @@ public class NavigateLobbyActivity extends AppCompatActivity {
         ArrayList<String> path = findpath.findShortestPath();
 //        String pathToPrint = path.toString();
 //        Log.d("Navigation Result", pathToPrint);
+
+        //for loop iterating through all the paths.
         Intent intent = CloudAnchorActivity.newResolvingIntent(this,path);
         startActivity(intent);
 
