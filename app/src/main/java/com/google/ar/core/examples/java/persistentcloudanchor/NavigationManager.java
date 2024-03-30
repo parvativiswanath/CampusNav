@@ -43,7 +43,7 @@ public class NavigationManager {
             distances.put(node, Float.MAX_VALUE);  // gotta change this
         }
         distances.put(start, 0f);
-        PriorityQueue<String> queue = new PriorityQueue<>(Comparator.comparingDouble(distances::get));
+        PriorityQueue<String> queue = new PriorityQueue<>(Comparator.comparing(distances::get));
         queue.add(start);
         while (!queue.isEmpty()) {
             String currentNode = queue.poll();

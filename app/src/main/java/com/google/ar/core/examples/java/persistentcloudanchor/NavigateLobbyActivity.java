@@ -20,6 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class NavigateLobbyActivity extends AppCompatActivity {
 
@@ -52,12 +53,51 @@ public class NavigateLobbyActivity extends AppCompatActivity {
         Log.d(TAG, "Find path button pressed");
         EditText start = (EditText) findViewById(R.id.anchor_start);
         EditText dest = (EditText) findViewById(R.id.anchor_dest);
-        NavigationManager findpath = new NavigationManager(start.getText().toString(), dest.getText().toString(), firebaseAnchors);
-        //change to class member so as to access it in visualisation part
-        List<String> path = findpath.findShortestPath();
-        String pathToPrint = path.toString();
-        Log.d("Navigation Result", pathToPrint);
 
+        AnchorItem startAnchor = getFirebaseAnchorByName(start.getText().toString());
+        if (startAnchor == null) {
+            Toast.makeText(this, "Invalid start anchor name", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        AnchorItem destAnchor = getFirebaseAnchorByName(dest.getText().toString());
+        if (destAnchor == null) {
+            Toast.makeText(this, "Invalid destination anchor name", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        NavigationManager findPath = new NavigationManager(startAnchor.anchorId, destAnchor.anchorId, firebaseAnchors);
+        //change to class member so as to access it in visualisation part
+        List<AnchorItem> path = findPath
+                .findShortestPath()
+                .stream()
+                .map(this::getFirebaseAnchorById)
+                .collect(Collectors.toList());
+
+        List<String> anchorNames = path
+                .stream()
+                .map(anchor -> anchor.anchorName)
+                .collect(Collectors.toList());
+        Log.d("Navigation Result", anchorNames.toString());
+
+    }
+
+    AnchorItem getFirebaseAnchorByName(String name) {
+        for (AnchorItem anchor : firebaseAnchors) {
+            if (anchor.anchorName.equals(name)) {
+                return anchor;
+            }
+        }
+        return null;
+    }
+
+    AnchorItem getFirebaseAnchorById(String id) {
+        for (AnchorItem anchor : firebaseAnchors) {
+            if (anchor.anchorId.equals(id)) {
+                return anchor;
+            }
+        }
+        return null;
     }
 
     public void loadAnchorsFromFirebase() {
