@@ -1,18 +1,5 @@
 package com.google.ar.core.examples.java.persistentcloudanchor;
 
-import android.util.Log;
-
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.GenericTypeIndicator;
-import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -30,59 +17,11 @@ public class NavigationManager {
     private String Source;
     private String Destination;
 
-    private List<AnchorItem> anchors;
-
-    public NavigationManager(String Source, String Destination) {
-        anchors = new ArrayList<>();
+    public NavigationManager(String Source, String Destination, List<AnchorItem> anchors) {
         this.Source = Source;
         this.Destination = Destination;
-        this.anchors = getAnchorsFromFirebase();
         this.graph = convertToGraphMap(/*parameter to pass anchors that were caught from firebase*/ anchors);
     }
-
-    // insert code load data from firebase and then store them to anchors
-    public ArrayList<AnchorItem> getAnchorsFromFirebase() {
-        ArrayList<AnchorItem> anchorsf = new ArrayList<>();
-//        HashMap<String, Object> data = new HashMap<>();
-        DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("myanchors");
-
-        databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //whenever firebase data is updated, anchors list data is also updated
-
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    AnchorItem anchor = snapshot.getValue(AnchorItem.class);
-                    Log.d(TAG, "firebase values edges: " + anchor);
-                    if (anchor != null) {
-                        anchorsf.add(anchor);
-                    }
-                }
-            }
-
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                //firebase listener not working
-                Log.d(TAG, "Firebase Listener Error");
-            }
-        });
-
-        return anchorsf;
-//        databaseRef.child("myanchors").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<DataSnapshot> task) {
-//                if (!task.isSuccessful()) {
-//                    Log.e("firebase", "Error getting data", task.getException());
-//                }
-//                else {
-//                    Log.d("firebase","Data retrieved");
-//                    for (DataSnapshot dataSnapshot : task.getResult().getChildren()) {
-//                        Log.d("firebase values", dataSnapshot.getKey() + ": " + dataSnapshot.getValue());
-//                    }
-//                }
-//            }
-//        });
-    }
-
 
     public static Map<String, Map<String, Float>> convertToGraphMap(List<AnchorItem> anchors) {
         Map<String, Map<String, Float>> graphMap = new HashMap<>();
