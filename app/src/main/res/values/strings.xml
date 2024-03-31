@@ -75,11 +75,11 @@
   <string name="too_far">You are too far; come closer</string>
 
   <!-- Strings used in the resolving flow-->
-  <string name="resolving_processing">Look at the location you expect the AR experience to appear.</string>
+  <string name="resolving_processing">Look around you to find waypoints</string>
   <string name="resolving_success">Resolve success!</string>
   <string name="resolving_error">Resolving Error: %1$s</string>
-  <string name="debug_resolving_processing">Attempting to resolve %1$d anchors...</string>
-  <string name="debug_resolving_success">Resolved anchors; continuing to refine pose.</string>
+  <string name="debug_resolving_processing">%1$d waypoints left in path</string>
+  <string name="debug_resolving_success">You have reached the destination!</string>
   <string name="debug_resolving_error">There was an error during Resolving: %1$s</string>
   <!-- Resolve anchor has no result yet. [CHAR_LIMIT=NONE] -->
 
