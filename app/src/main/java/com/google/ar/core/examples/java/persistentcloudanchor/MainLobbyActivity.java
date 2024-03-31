@@ -72,6 +72,10 @@ public class MainLobbyActivity extends AppCompatActivity {
     super.onPause();
     displayRotationHelper.onPause();
   }
+  static Intent mainLobbyActivity(Context packageContext) {
+    Intent intent = new Intent(packageContext, CloudAnchorActivity.class);
+    return intent;
+  }
 
   private void onHostButtonPress() {
     Intent intent = CloudAnchorActivity.newHostingIntent(this);
