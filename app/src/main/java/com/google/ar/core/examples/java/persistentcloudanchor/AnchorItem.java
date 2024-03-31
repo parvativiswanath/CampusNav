@@ -18,7 +18,13 @@ package com.google.ar.core.examples.java.persistentcloudanchor;
 import android.util.Log;
 
 import com.google.ar.core.Anchor;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.GenericTypeIndicator;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import java.lang.reflect.Type;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 /** Container class holding identifying information for an Anchor to be resolved. */
@@ -31,14 +37,10 @@ public class AnchorItem extends Anchor {
   private boolean selected;
   public Map<String, Float> edges;
 
-  public HashMap<String, Object> asMap() {
-    HashMap<String, Object> map = new HashMap<String, Object>();
-    map.put("anchorId", anchorId);
-    map.put("anchorName", anchorName);
-    map.put("minutesSinceCreation", minutesSinceCreation);
-    map.put("edges", edges);
-
-    return map;
+  public AnchorItem() {
+    anchorName = "";
+    anchorId = "";
+    minutesSinceCreation = 0;
   }
 
   public AnchorItem(String anchorId, String anchorName, long minutesSinceCreation) {
@@ -58,6 +60,46 @@ public class AnchorItem extends Anchor {
       Log.d(TAG,"Key: " + key + ", Value: " + value);
     }
   }
+  public HashMap<String, Object> asMap() {
+    HashMap<String, Object> map = new HashMap<String, Object>();
+    map.put("anchorId", anchorId);
+    map.put("anchorName", anchorName);
+    map.put("minutesSinceCreation", minutesSinceCreation);
+    map.put("edges", edges);
+
+    return map;
+  }
+
+  public AnchorItem(DataSnapshot snapshot){
+    this.edges = new HashMap<String, Float>();
+    this.anchorId = snapshot.child("anchorId").getValue(String.class);
+    this.anchorName = snapshot.child("anchorName").getValue(String.class);
+    DataSnapshot minutesSinceCreationSnapshot = snapshot.child("minutesSinceCreation");
+    if (minutesSinceCreationSnapshot.exists()) {
+      this.minutesSinceCreation = minutesSinceCreationSnapshot.getValue(Integer.class);
+    } else {
+      // Handle the case when minutesSinceCreation is null or missing
+      this.minutesSinceCreation = 0; // Or any default value that makes sense in your context
+    }
+    this.edges = snapshot.child("edges").getValue(new GenericTypeIndicator<Map<String, Float>>() {});
+    //ERRORRRRRRRRRRRRRRR(LINE 77)
+//    HashMap<String, Float> edges = new HashMap<>();
+//    this.edges = new HashMap<>();
+//    DataSnapshot edgesSnapshot = snapshot.child("edges");
+//    if(edgesSnapshot.exists()){
+//      for(DataSnapshot edgeSnapshot : edgesSnapshot.getChildren()){
+//        String key = edgeSnapshot.getKey();
+//        Float value = edgeSnapshot.getValue(Float.class);
+//        if(key!= null && value != null){
+//          this.edges.put(key,value);
+//        }
+//      }
+
+    }
+
+
+
+
   public String getAnchorName() {
     return anchorName;
   }

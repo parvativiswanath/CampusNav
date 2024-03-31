@@ -27,47 +27,16 @@ public class NavigationManager {
     private String Source;
     private String Destination;
 
-    private List<AnchorItem> anchors;
-
-    public NavigationManager(String Source, String Destination){
-        anchors = new ArrayList<>();
+    public NavigationManager(String Source, String Destination, List<AnchorItem> anchors) {
         this.Source = Source;
         this.Destination = Destination;
-        this.anchors = getAnchorsFromFirebase();
         this.graph = convertToGraphMap(/*parameter to pass anchors that were caught from firebase*/ anchors);
     }
 
-    // insert code load data from firebase and then store them to anchors
-    public ArrayList<AnchorItem> getAnchorsFromFirebase() {
-        ArrayList<AnchorItem> anchorsf = new ArrayList<>();
-        DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("myanchors");
-        databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //whenever firebase data is updated, anchors list data is also updated
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    AnchorItem anchorItem = snapshot.getValue(AnchorItem.class);
-                    if (anchorItem != null) {
-                        anchorsf.add(anchorItem);
-                    }
-                }
-            }
+    public static Map<String, Map<String, Float>> convertToGraphMap(List<AnchorItem> anchors) {
+        Map<String, Map<String, Float>> graphMap = new HashMap<>();
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                //firebase listener not working
-                Log.d(TAG,"Firebase Listener Error");
-            }
-        });
-        return anchorsf;
-    }
-
-
-
-    public static Map<String, Map<String, Float>> convertToGraphMap(List<AnchorItem> anchors){
-        Map<String, Map<String,Float>> graphMap = new HashMap<>();
-
-        for(AnchorItem anchor: anchors){
+        for (AnchorItem anchor : anchors) {
             String source = anchor.getAnchorId();
             Map<String, Float> distances = anchor.getEdges();
             graphMap.put(source, distances);
@@ -75,7 +44,7 @@ public class NavigationManager {
         return graphMap;
     }
 
-    public ArrayList<String> findShortestPath(){
+    public List<String> findShortestPath() {
         String start = this.Source;
         String Dest = this.Destination;
         Map<String, Float> distances = new HashMap<>();
@@ -84,7 +53,7 @@ public class NavigationManager {
             distances.put(node, Float.MAX_VALUE);  // gotta change this
         }
         distances.put(start, 0f);
-        PriorityQueue<String> queue = new PriorityQueue<>(Comparator.comparingDouble(distances::get));
+        PriorityQueue<String> queue = new PriorityQueue<>(Comparator.comparing(distances::get));
         queue.add(start);
         while (!queue.isEmpty()) {
             String currentNode = queue.poll();
@@ -104,7 +73,7 @@ public class NavigationManager {
         }
 
         // Reconstruct the shortest path.
-        ArrayList<String> shortestPath = new ArrayList<>();
+        List<String> shortestPath = new ArrayList<>();
         String currentNode = Dest;
         while (currentNode != null) {
             shortestPath.add(currentNode);
