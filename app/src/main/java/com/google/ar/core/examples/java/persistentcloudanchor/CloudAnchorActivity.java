@@ -715,12 +715,12 @@ public class CloudAnchorActivity extends AppCompatActivity implements GLSurfaceV
       saveAnchorToStorage(cloudAnchorId, anchorNickname, sharedPreferences);
       userMessageText.setVisibility(View.GONE);
       debugText.setText(getString(R.string.debug_hosting_success, cloudAnchorId));
-      Intent sendIntent = new Intent();
-      sendIntent.setAction(Intent.ACTION_SEND);
-      sendIntent.putExtra(Intent.EXTRA_TEXT, cloudAnchorId);
-      sendIntent.setType("text/plain");
-      Intent shareIntent = Intent.createChooser(sendIntent, null);
-      startActivity(shareIntent);
+//      Intent sendIntent = new Intent();
+//      sendIntent.setAction(Intent.ACTION_SEND);
+//      sendIntent.putExtra(Intent.EXTRA_TEXT, cloudAnchorId);
+//      sendIntent.setType("text/plain");
+//      Intent shareIntent = Intent.createChooser(sendIntent, null);
+//      startActivity(shareIntent);
     }
 
     private void saveAnchorWithNickname() {
