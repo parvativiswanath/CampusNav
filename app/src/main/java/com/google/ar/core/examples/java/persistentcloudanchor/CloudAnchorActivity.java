@@ -503,7 +503,7 @@ public class CloudAnchorActivity extends AppCompatActivity implements GLSurfaceV
       }
 
       float[] colorCorrectionRgba = new float[4];
-      float scaleFactor = 1.0f;
+      float scaleFactor = 2.0f;
       frame.getLightEstimate().getColorCorrection(colorCorrectionRgba, 0);
       boolean shouldDrawFeatureMapQualityUi = false;
       synchronized (anchorLock) {
@@ -656,6 +656,7 @@ public class CloudAnchorActivity extends AppCompatActivity implements GLSurfaceV
           String.format(
               "Attempting to resolve %d anchor(s): %s",
               unresolvedAnchorIds.size(), unresolvedAnchorIds));
+      //calling function for resolving
       for (String cloudAnchorId : unresolvedAnchorIds) {
         cloudAnchorManager.resolveCloudAnchor(cloudAnchorId, resolveListener);
       }

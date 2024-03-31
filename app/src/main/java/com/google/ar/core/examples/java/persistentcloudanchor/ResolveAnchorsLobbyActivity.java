@@ -139,6 +139,8 @@ public class ResolveAnchorsLobbyActivity extends AppCompatActivity {
   /** Callback function invoked when the Resolve Button is pressed. */
   private void onResolveButtonPress() {
     ArrayList<String> anchorsToResolve = new ArrayList<>();
+    //gets the anchors tobe resolved
+    // change it to the list obtained from the navigation process
     for (AnchorItem anchorItem : selectedAnchors) {
       if (anchorItem.isSelected()) {
         anchorsToResolve.add(anchorItem.getAnchorId());
@@ -152,6 +154,8 @@ public class ResolveAnchorsLobbyActivity extends AppCompatActivity {
       }
       anchorsToResolve.add(anchorId);
     }
+
+    // here starts resolving
     Intent intent = CloudAnchorActivity.newResolvingIntent(this, anchorsToResolve);
     startActivity(intent);
   }

@@ -2,6 +2,7 @@ package com.google.ar.core.examples.java.persistentcloudanchor;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
@@ -80,6 +81,15 @@ public class NavigateLobbyActivity extends AppCompatActivity {
                 .collect(Collectors.toList());
         Log.d("Navigation Result", anchorNames.toString());
 
+        List<String> anchorIds = path
+                .stream()
+                .map(anchor -> anchor.anchorId)
+                .collect(Collectors.toList());
+
+
+        Intent intent = CloudAnchorActivity.newResolvingIntent(this,new ArrayList<>(anchorIds));
+        startActivity(intent);
+
     }
 
     AnchorItem getFirebaseAnchorByName(String name) {
@@ -121,4 +131,5 @@ public class NavigateLobbyActivity extends AppCompatActivity {
             }
         });
     }
+
 }
