@@ -82,7 +82,7 @@ public class MainLobbyActivity extends AppCompatActivity {
     Intent intent = AddDistanceActivity.newIntent(this);
     SharedPreferences sharedPreferences =
             this.getSharedPreferences(CloudAnchorActivity.PREFERENCE_FILE_KEY, Context.MODE_PRIVATE);
-    AnchorDataStore.storeToSharedPreferences(AnchorDataStore.dummyData(), sharedPreferences);
+    //AnchorDataStore.storeToSharedPreferences(AnchorDataStore.dummyData(), sharedPreferences);
     startActivity(intent);
   }
 

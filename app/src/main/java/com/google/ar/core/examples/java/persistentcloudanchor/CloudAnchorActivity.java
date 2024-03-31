@@ -503,7 +503,7 @@ public class CloudAnchorActivity extends AppCompatActivity implements GLSurfaceV
       }
 
       float[] colorCorrectionRgba = new float[4];
-      float scaleFactor = 5.0f;
+      float scaleFactor = 2.0f;
       frame.getLightEstimate().getColorCorrection(colorCorrectionRgba, 0);
       boolean shouldDrawFeatureMapQualityUi = false;
       synchronized (anchorLock) {
