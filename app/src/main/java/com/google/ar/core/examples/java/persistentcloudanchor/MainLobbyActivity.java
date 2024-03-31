@@ -22,6 +22,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.Toast;
+
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -114,6 +116,8 @@ public class MainLobbyActivity extends AppCompatActivity {
           String anchorId = anchor.getAnchorId();
           databaseRef.child("myanchors").child(anchorId).setValue(anchor.asMap());
       }
+    String notificationMessage = "Map saved";
+    Toast.makeText(getApplicationContext(), notificationMessage, Toast.LENGTH_SHORT).show();
   }
 }
 

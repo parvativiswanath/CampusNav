@@ -142,7 +142,7 @@
 
     <TextView
         android:id="@+id/navigate_title"
-        android:layout_width="147dp"
+        android:layout_width="192dp"
         android:layout_height="106dp"
         android:gravity="center"
         android:paddingTop="60dp"
