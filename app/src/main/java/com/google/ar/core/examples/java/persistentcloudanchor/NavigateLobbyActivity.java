@@ -81,6 +81,15 @@ public class NavigateLobbyActivity extends AppCompatActivity {
                 .collect(Collectors.toList());
         Log.d("Navigation Result", anchorNames.toString());
 
+        List<String> anchorIds = path
+                .stream()
+                .map(anchor -> anchor.anchorId)
+                .collect(Collectors.toList());
+
+
+        Intent intent = CloudAnchorActivity.newResolvingIntent(this,new ArrayList<>(anchorIds));
+        startActivity(intent);
+
     }
 
     AnchorItem getFirebaseAnchorByName(String name) {
