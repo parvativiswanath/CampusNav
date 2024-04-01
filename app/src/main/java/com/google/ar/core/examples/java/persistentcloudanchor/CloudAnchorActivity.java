@@ -87,8 +87,7 @@ public class CloudAnchorActivity extends AppCompatActivity implements GLSurfaceV
   protected static final String HOSTED_ANCHOR_DETAILS = "anchor_details";
   protected static final double MIN_DISTANCE = 0.2f;
   protected static final double MAX_DISTANCE = 10.0f;
-  private final Context context = this;
-
+  
   static Intent newHostingIntent(Context packageContext) {
     Intent intent = new Intent(packageContext, CloudAnchorActivity.class);
     intent.putExtra(EXTRA_HOSTING_MODE, true);
@@ -724,7 +723,7 @@ public class CloudAnchorActivity extends AppCompatActivity implements GLSurfaceV
 //      Intent shareIntent = Intent.createChooser(sendIntent, null);
 //      startActivity(shareIntent);
 
-        Intent intent = MainLobbyActivity.mainLobbyActivity(context);
+        Intent intent = MainLobbyActivity.mainLobbyActivity(CloudAnchorActivity.this);
         startActivity(intent);
 
     }
