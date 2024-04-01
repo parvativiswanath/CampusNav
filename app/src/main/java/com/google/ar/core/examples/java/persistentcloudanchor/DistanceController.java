@@ -1,5 +1,7 @@
 package com.google.ar.core.examples.java.persistentcloudanchor;
 
+import static java.lang.Math.sqrt;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import com.google.gson.Gson;
@@ -33,7 +35,7 @@ public class DistanceController {
     }
     // The function that is called when the Distance Update button is pressed.
     //Gets the sourcec name and dest name and then, updates the edges
-    public void DistanceSave(String SourceName, String DestName, Float distance){
+    public void DistanceSave(String SourceName, String DestName){
         // retrieveing the stored anchors
         sharedPreferences =
                 context.getSharedPreferences(CloudAnchorActivity.PREFERENCE_FILE_KEY, Context.MODE_PRIVATE);
@@ -41,16 +43,27 @@ public class DistanceController {
         List<AnchorItem> anchors = AnchorDataStore.getDataFromSharedPreferences(sharedPreferences);
         String SourceId = "";
         String DestId= "";
+        float[] sourcePose=new float[3];
+        float[] destPose=new float[3];
+        float distance;
 
         //Get Anchor Ids of the source and destination nodes
         for(AnchorItem anchor: anchors) {
             if (anchor.getAnchorName().equals(SourceName)) {
                 SourceId = anchor.getAnchorId();
+                sourcePose = anchor.getPosition();
             }
             if (anchor.getAnchorName().equals(DestName)){
                 DestId = anchor.getAnchorId();
+                destPose = anchor.getPosition();
             }
         }
+
+        // find the euclidean distance
+        distance = (float)sqrt(
+                (Math.pow(destPose[0] - sourcePose[0], 2)
+                + Math.pow(destPose[1] - sourcePose[1], 2)
+                + Math.pow(destPose[2] - sourcePose[2], 2)));
         //Update the edges
         for(AnchorItem anchor: anchors) {
             if (anchor.getAnchorName().equals(SourceName)) {

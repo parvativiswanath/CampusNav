@@ -34,18 +34,18 @@ public class AddDistanceActivity extends AppCompatActivity {
 
         EditText anchor1 = (EditText) findViewById(R.id.anchor1);
         EditText anchor2 = (EditText) findViewById(R.id.anchor2);
-        EditText dist = (EditText) findViewById(R.id.dist);
+        //EditText dist = (EditText) findViewById(R.id.dist);
 
         //Get data entered by the user
         String anchor1Name = anchor1.getText().toString();
         String anchor2Name = anchor2.getText().toString();
-        float distance = Float.parseFloat(dist.getText().toString());
-        distanceController.DistanceSave(anchor1Name, anchor2Name, distance);
+        //float distance = Float.parseFloat(dist.getText().toString());
+        distanceController.DistanceSave(anchor1Name, anchor2Name);
 
         // Clear the text fields
         anchor1.setText("");
         anchor2.setText("");
-        dist.setText("");
+        //dist.setText("");
 
         // Show a notification message
         String notificationMessage = "Distance updated";
