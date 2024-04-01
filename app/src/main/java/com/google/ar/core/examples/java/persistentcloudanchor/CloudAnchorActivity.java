@@ -153,6 +153,7 @@ public class CloudAnchorActivity extends AppCompatActivity implements GLSurfaceV
 
   @GuardedBy("anchorLock")
   private List<Anchor> resolvedAnchors = new ArrayList<>();
+  private float[] translation;
 
   @GuardedBy("anchorLock")
   private List<String> unresolvedAnchorIds = new ArrayList<>();
@@ -161,14 +162,14 @@ public class CloudAnchorActivity extends AppCompatActivity implements GLSurfaceV
   private HostResolveMode currentMode;
 
   private static void saveAnchorToStorage(
-      String anchorId, String anchorNickname, SharedPreferences anchorPreferences) {
+      String anchorId, String anchorNickname, float[] anchorPose, SharedPreferences anchorPreferences) {
 
     long anchorMinutes = TimeUnit.MILLISECONDS.toMinutes(System.currentTimeMillis());
     //AnchorItem
     // get existing data
     // append
     // store
-    AnchorItem newAnchor = new AnchorItem(anchorId,anchorNickname,anchorMinutes);
+    AnchorItem newAnchor = new AnchorItem(anchorId,anchorNickname,anchorMinutes, anchorPose);
     AnchorDataStore.appendToExistingAnchorData(newAnchor,anchorPreferences);
 
 
@@ -593,6 +594,7 @@ public class CloudAnchorActivity extends AppCompatActivity implements GLSurfaceV
         synchronized (anchorLock) {
           hostedAnchor = true;
           cloudAnchorManager.hostCloudAnchor(anchor, new HostListener());
+          translation = anchor.getPose().getTranslation();
         }
         runOnUiThread(
             () -> {
@@ -713,7 +715,7 @@ public class CloudAnchorActivity extends AppCompatActivity implements GLSurfaceV
 
     /** Callback function invoked when the user presses the OK button in the Save Anchor Dialog. */
     private void onAnchorNameEntered(String anchorNickname) {
-      saveAnchorToStorage(cloudAnchorId, anchorNickname, sharedPreferences);
+      saveAnchorToStorage(cloudAnchorId, anchorNickname, translation, sharedPreferences);
       userMessageText.setVisibility(View.GONE);
       debugText.setText(getString(R.string.debug_hosting_success, cloudAnchorId));
 //      Intent sendIntent = new Intent();
