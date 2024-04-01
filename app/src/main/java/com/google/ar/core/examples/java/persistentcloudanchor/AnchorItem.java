@@ -35,6 +35,7 @@ public class AnchorItem extends Anchor {
   public final String anchorName;
   public final long minutesSinceCreation;
   private boolean selected;
+  private float[] pose;
   public Map<String, Float> edges;
 
   public AnchorItem() {
@@ -43,12 +44,13 @@ public class AnchorItem extends Anchor {
     minutesSinceCreation = 0;
   }
 
-  public AnchorItem(String anchorId, String anchorName, long minutesSinceCreation) {
+  public AnchorItem(String anchorId, String anchorName, long minutesSinceCreation, float[] pose) {
     this.anchorId = anchorId;
     this.anchorName = anchorName;
     this.minutesSinceCreation = minutesSinceCreation;
     this.selected = false;
     this.edges = new HashMap<>();
+    this.pose = pose;
   }
 
   public void DistanceUpdate(String anchorId, Float distance){
@@ -65,6 +67,7 @@ public class AnchorItem extends Anchor {
     map.put("anchorId", anchorId);
     map.put("anchorName", anchorName);
     map.put("minutesSinceCreation", minutesSinceCreation);
+    map.put("position:", pose);
     map.put("edges", edges);
 
     return map;
@@ -108,6 +111,8 @@ public class AnchorItem extends Anchor {
     this.edges = edges;
   }
   public Map<String, Float> getEdges(){return edges;}
+
+  public float[] getPosition(){return pose;}
 
   public String getAnchorId() {
     return anchorId;

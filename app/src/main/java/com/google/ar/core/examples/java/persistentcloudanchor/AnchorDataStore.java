@@ -68,10 +68,15 @@ public class AnchorDataStore {
     public static List<AnchorItem> dummyData() {
         ArrayList<AnchorItem> anchors = new ArrayList<>();
 
-        anchors.add(new AnchorItem("aa", "bed", 12));
-        anchors.add(new AnchorItem("bb", "mat", 14));
-        anchors.add(new AnchorItem("cc", "mirror", 16));
-        anchors.add(new AnchorItem("dd", "wall", 24));
+        float[] aa ={1.5f, 2f,1f} ;
+        float[] bb = {1f, 2f, 1.5f};
+        float[] cc = {2f,3f,4f};
+        float[] dd ={3f, 2f,1f} ;
+
+        anchors.add(new AnchorItem("aa", "bed", 12,aa));
+        anchors.add(new AnchorItem("bb", "mat", 14, bb));
+        anchors.add(new AnchorItem("cc", "mirror", 16, cc));
+        anchors.add(new AnchorItem("dd", "wall", 24, dd));
 
         return anchors;
     }
