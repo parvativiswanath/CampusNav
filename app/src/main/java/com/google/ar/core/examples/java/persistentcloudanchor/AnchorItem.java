@@ -67,7 +67,6 @@ public class AnchorItem extends Anchor {
     map.put("anchorId", anchorId);
     map.put("anchorName", anchorName);
     map.put("minutesSinceCreation", minutesSinceCreation);
-    map.put("position:", pose);
     map.put("edges", edges);
 
     return map;
