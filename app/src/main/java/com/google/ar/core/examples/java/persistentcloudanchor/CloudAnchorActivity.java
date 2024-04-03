@@ -723,8 +723,8 @@ public class CloudAnchorActivity extends AppCompatActivity implements GLSurfaceV
 //      Intent shareIntent = Intent.createChooser(sendIntent, null);
 //      startActivity(shareIntent);
 
-        Intent intent = MainLobbyActivity.mainLobbyActivity(CloudAnchorActivity.this);
-        startActivity(intent);
+//        Intent intent = MainLobbyActivity.mainLobbyActivity(CloudAnchorActivity.this);
+//        startActivity(intent);
 
     }
 
