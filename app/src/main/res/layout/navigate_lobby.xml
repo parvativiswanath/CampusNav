@@ -22,6 +22,7 @@
       android:layout_height="match_parent"
       tools:context="com.google.ar.core.examples.java.persistentcloudanchor.MainLobbyActivity">
 
+
     <TextView
         android:id="@+id/navigate_title"
         android:layout_width="192dp"
@@ -60,6 +61,7 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="40dp"
+        android:minHeight="48dp"
         android:spinnerMode="dialog"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -87,6 +89,7 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="40dp"
+        android:minHeight="48dp"
         android:spinnerMode="dialog"
         app:layout_constraintBottom_toTopOf="@+id/find_path_button"
         app:layout_constraintEnd_toEndOf="parent"
@@ -96,8 +99,8 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/find_path_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="118dp"
+        android:layout_height="60dp"
         android:layout_marginTop="68dp"
         android:text="@string/find_path_text"
         android:theme="@style/AppButtonTheme"
@@ -111,7 +114,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.16" />
+        app:layout_constraintGuide_percent="0.15" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_enter"
@@ -127,17 +130,8 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="106dp" />
 
-<!--    <com.google.android.material.card.MaterialCardView-->
-<!--        android:id="@+id/materialCardView"-->
-<!--        android:layout_width="30dp"-->
-<!--        android:layout_height="1dp"-->
-<!--        app:cardBackgroundColor="@android:color/primary_text_dark"-->
-<!--        app:layout_constraintBottom_toBottomOf="@id/guideline_center"-->
-<!--        app:layout_constraintTop_toTopOf="@id/guideline_center"-->
-<!--        card_view:cardElevation="0dp"-->
-<!--        tools:layout_editor_absoluteX="231dp" />-->
 
-<!--    <com.google.android.material.card.MaterialCardView-->
+    <!--    <com.google.android.material.card.MaterialCardView-->
 <!--        android:layout_width="30dp"-->
 <!--        android:layout_height="1dp"-->
 <!--        app:cardBackgroundColor="@android:color/primary_text_dark"-->
