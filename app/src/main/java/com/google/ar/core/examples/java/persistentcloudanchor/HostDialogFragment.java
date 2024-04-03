@@ -22,6 +22,8 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioGroup;
+
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentActivity;
 import com.google.common.base.Preconditions;
@@ -35,10 +37,11 @@ public class HostDialogFragment extends DialogFragment {
      *
      * @param dialogValue the long value from the dialog box
      */
-    void onOkPressed(String dialogValue);
+    void onOkPressed(String dialogValue, Boolean destination);
   }
 
   private EditText nicknameField;
+  private RadioGroup destinationRadioGroup;
   private OkListener okListener;
 
   public void setOkListener(OkListener okListener) {
@@ -56,6 +59,7 @@ public class HostDialogFragment extends DialogFragment {
     // Passing null as the root is fine, because the view is for a dialog.
     View dialogView = activity.getLayoutInflater().inflate(R.layout.save_anchor_dialog, null);
     nicknameField = dialogView.findViewById(R.id.nickname_edit_text);
+    destinationRadioGroup = dialogView.findViewById(R.id.destination_radio_group);
     nicknameField.setText(defaultNickname);
     builder
         .setView(dialogView)
@@ -64,8 +68,9 @@ public class HostDialogFragment extends DialogFragment {
             R.string.nickname_dialog_ok,
             (dialog, which) -> {
               Editable nicknameText = nicknameField.getText();
+              boolean isDestination = destinationRadioGroup.getCheckedRadioButtonId() == R.id.destination_radio_button;
               if (okListener != null) {
-                okListener.onOkPressed(nicknameText.toString());
+                okListener.onOkPressed(nicknameText.toString(), isDestination);
               }
             });
     return builder.create();
