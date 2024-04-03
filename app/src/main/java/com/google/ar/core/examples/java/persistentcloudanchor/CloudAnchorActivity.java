@@ -161,14 +161,14 @@ public class CloudAnchorActivity extends AppCompatActivity implements GLSurfaceV
   private HostResolveMode currentMode;
 
   private static void saveAnchorToStorage(
-      String anchorId, String anchorNickname, SharedPreferences anchorPreferences) {
+      String anchorId, String anchorNickname, SharedPreferences anchorPreferences, Boolean isDestination) {
 
     long anchorMinutes = TimeUnit.MILLISECONDS.toMinutes(System.currentTimeMillis());
     //AnchorItem
     // get existing data
     // append
     // store
-    AnchorItem newAnchor = new AnchorItem(anchorId,anchorNickname,anchorMinutes);
+    AnchorItem newAnchor = new AnchorItem(anchorId,anchorNickname,anchorMinutes, isDestination);
     AnchorDataStore.appendToExistingAnchorData(newAnchor,anchorPreferences);
 
 
@@ -712,8 +712,8 @@ public class CloudAnchorActivity extends AppCompatActivity implements GLSurfaceV
     }
 
     /** Callback function invoked when the user presses the OK button in the Save Anchor Dialog. */
-    private void onAnchorNameEntered(String anchorNickname) {
-      saveAnchorToStorage(cloudAnchorId, anchorNickname, sharedPreferences);
+    private void onAnchorNameEntered(String anchorNickname, Boolean isDestination) {
+      saveAnchorToStorage(cloudAnchorId, anchorNickname, sharedPreferences, isDestination);
       userMessageText.setVisibility(View.GONE);
       debugText.setText(getString(R.string.debug_hosting_success, cloudAnchorId));
 //      Intent sendIntent = new Intent();

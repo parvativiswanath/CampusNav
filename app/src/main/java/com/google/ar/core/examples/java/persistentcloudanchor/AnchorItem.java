@@ -43,11 +43,11 @@ public class AnchorItem extends Anchor {
     minutesSinceCreation = 0;
   }
 
-  public AnchorItem(String anchorId, String anchorName, long minutesSinceCreation) {
+  public AnchorItem(String anchorId, String anchorName, long minutesSinceCreation, boolean destination) {
     this.anchorId = anchorId;
     this.anchorName = anchorName;
     this.minutesSinceCreation = minutesSinceCreation;
-    this.selected = false;
+    this.destination = false;
     this.edges = new HashMap<>();
   }
 
