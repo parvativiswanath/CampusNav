@@ -68,10 +68,10 @@ public class AnchorDataStore {
     public static List<AnchorItem> dummyData() {
         ArrayList<AnchorItem> anchors = new ArrayList<>();
 
-        anchors.add(new AnchorItem("aa", "bed", 12));
-        anchors.add(new AnchorItem("bb", "mat", 14));
-        anchors.add(new AnchorItem("cc", "mirror", 16));
-        anchors.add(new AnchorItem("dd", "wall", 24));
+        anchors.add(new AnchorItem("aa", "bed", 12,true));
+        anchors.add(new AnchorItem("bb", "mat", 14, false));
+        anchors.add(new AnchorItem("cc", "mirror", 16, false));
+        anchors.add(new AnchorItem("dd", "wall", 24, true));
 
         return anchors;
     }
