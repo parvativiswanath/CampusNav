@@ -33,7 +33,7 @@ public class DistanceController {
     }
     // The function that is called when the Distance Update button is pressed.
     //Gets the sourcec name and dest name and then, updates the edges
-    public void DistanceSave(String SourceName, String DestName, Float distance){
+    public int DistanceSave(String SourceName, String DestName, Float distance){
         // retrieveing the stored anchors
         sharedPreferences =
                 context.getSharedPreferences(CloudAnchorActivity.PREFERENCE_FILE_KEY, Context.MODE_PRIVATE);
@@ -51,6 +51,8 @@ public class DistanceController {
                 DestId = anchor.getAnchorId();
             }
         }
+        if (SourceId=="" || DestId=="")
+            return 0;
         //Update the edges
         for(AnchorItem anchor: anchors) {
             if (anchor.getAnchorName().equals(SourceName)) {
@@ -64,6 +66,7 @@ public class DistanceController {
 
         }
         AnchorDataStore.storeToSharedPreferences(anchors, sharedPreferences);
+        return 1;
     }
 
 //    public void setPreferences(List<AnchorItem> anchors){

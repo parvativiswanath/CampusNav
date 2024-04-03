@@ -40,7 +40,7 @@ public class AddDistanceActivity extends AppCompatActivity {
         String anchor1Name = anchor1.getText().toString();
         String anchor2Name = anchor2.getText().toString();
         float distance = Float.parseFloat(dist.getText().toString());
-        distanceController.DistanceSave(anchor1Name, anchor2Name, distance);
+        int res = distanceController.DistanceSave(anchor1Name, anchor2Name, distance);
 
         // Clear the text fields
         anchor1.setText("");
@@ -48,8 +48,12 @@ public class AddDistanceActivity extends AppCompatActivity {
         dist.setText("");
 
         // Show a notification message
-        String notificationMessage = "Distance updated";
-        Toast.makeText(getApplicationContext(), notificationMessage, Toast.LENGTH_SHORT).show();
+        String successMessage = "Distance updated";
+        String errorMessage = "Please enter correct anchor names and retry";
+        if(res==1)
+            Toast.makeText(getApplicationContext(), successMessage, Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_SHORT).show();
 
         distanceController.printDistances(anchor1Name);
         distanceController.printDistances(anchor2Name);
