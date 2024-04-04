@@ -47,7 +47,7 @@ public class AnchorItem extends Anchor {
     this.anchorId = anchorId;
     this.anchorName = anchorName;
     this.minutesSinceCreation = minutesSinceCreation;
-    this.destination = false;
+    this.destination = destination;
     this.edges = new HashMap<>();
   }
 
