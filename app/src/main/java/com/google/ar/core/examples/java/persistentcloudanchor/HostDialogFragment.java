@@ -71,7 +71,9 @@ public class HostDialogFragment extends DialogFragment {
               Editable nicknameText = nicknameField.getText();
               int checkedRadioButtonId = destinationRadioGroup.getCheckedRadioButtonId();
               Log.d("CheckedRadioButtonId", "ID: " + checkedRadioButtonId);
-              boolean isDestination = destinationRadioGroup.getCheckedRadioButtonId() == R.id.destination_radio_button;
+                Log.d("CheckedRadioButtonId", "ID: " + R.id.destination_radio_button);
+              Boolean isDestination = destinationRadioGroup.getCheckedRadioButtonId() == R.id.destination_radio_button;
+              Log.d("booleanvalue", isDestination.toString());
               if (okListener != null) {
                 okListener.onOkPressed(nicknameText.toString(), isDestination);
               }
