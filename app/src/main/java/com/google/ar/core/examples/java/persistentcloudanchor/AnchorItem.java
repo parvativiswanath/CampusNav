@@ -64,7 +64,7 @@ public class AnchorItem extends Anchor {
     HashMap<String, Object> map = new HashMap<String, Object>();
     map.put("anchorId", anchorId);
     map.put("anchorName", anchorName);
-    map.put("isDestination", destination);
+    map.put("destination", destination);
     map.put("minutesSinceCreation", minutesSinceCreation);
     map.put("edges", edges);
 
