@@ -20,6 +20,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.text.Editable;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioGroup;
@@ -68,6 +69,8 @@ public class HostDialogFragment extends DialogFragment {
             R.string.nickname_dialog_ok,
             (dialog, which) -> {
               Editable nicknameText = nicknameField.getText();
+              int checkedRadioButtonId = destinationRadioGroup.getCheckedRadioButtonId();
+              Log.d("CheckedRadioButtonId", "ID: " + checkedRadioButtonId);
               boolean isDestination = destinationRadioGroup.getCheckedRadioButtonId() == R.id.destination_radio_button;
               if (okListener != null) {
                 okListener.onOkPressed(nicknameText.toString(), isDestination);
