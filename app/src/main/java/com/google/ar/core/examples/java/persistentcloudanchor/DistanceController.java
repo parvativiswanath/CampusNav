@@ -2,9 +2,18 @@ package com.google.ar.core.examples.java.persistentcloudanchor;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import android.content.ContextWrapper;
 import android.util.Log;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 import java.util.List;
 
@@ -69,6 +78,36 @@ public class DistanceController {
         return 1;
     }
 
+    public int DistanceSaveWithFirebase(String SourceName, String DestName, Float distance, List<AnchorItem> firebaseAnchors){
+        // retrieveing the stored anchors
+//        sharedPreferences =
+//                context.getSharedPreferences(CloudAnchorActivity.PREFERENCE_FILE_KEY, Context.MODE_PRIVATE);
+//        List<AnchorItem> anchors = ResolveAnchorsLobbyActivity.retrieveStoredAnchors(sharedPreferences);
+
+        List<AnchorItem> anchors = firebaseAnchors;
+        String SourceId = "";
+        String DestId= "";
+        Log.d("firebase","inside distance saving function");
+        //Get Anchor Ids of the source and destination nodes
+        for(AnchorItem anchor: anchors) {
+            if (anchor.getAnchorName().equals(SourceName)) {
+                SourceId = anchor.getAnchorId();
+            }
+            if (anchor.getAnchorName().equals(DestName)){
+                DestId = anchor.getAnchorId();
+            }
+        }
+        if (SourceId=="" || DestId=="")
+            return 0;
+        //Update the edges in firebase
+        Log.d("firebase","updating distance in firebase");
+        DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("myanchors");
+        databaseRef.child(SourceId).child("edges").child(DestId).setValue(distance);
+        databaseRef.child(DestId).child("edges").child(SourceId).setValue(distance);
+
+        return 1;
+    }
+
 //    public void setPreferences(List<AnchorItem> anchors){
 //        //String hostedAnchorId = sharedPreferences.getString(CloudAnchorActivity.HOSTED_ANCHOR_DISTANCES, "");
 //        //connecting to the shared preferences file that has the data
@@ -111,6 +150,4 @@ public class DistanceController {
 //
 //
 //    }
-
-
 }
