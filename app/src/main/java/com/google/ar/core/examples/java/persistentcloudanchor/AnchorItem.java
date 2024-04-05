@@ -34,7 +34,7 @@ public class AnchorItem extends Anchor {
   public final String anchorId;
   public final String anchorName;
   public final long minutesSinceCreation;
-  private Boolean destination;
+  private Boolean isDestination;
   public Map<String, Float> edges;
 
   public AnchorItem() {
@@ -43,11 +43,11 @@ public class AnchorItem extends Anchor {
     minutesSinceCreation = 0;
   }
 
-  public AnchorItem(String anchorId, String anchorName, long minutesSinceCreation, Boolean destination) {
+  public AnchorItem(String anchorId, String anchorName, long minutesSinceCreation, Boolean isDestination) {
     this.anchorId = anchorId;
     this.anchorName = anchorName;
     this.minutesSinceCreation = minutesSinceCreation;
-    this.destination = destination;
+    this.isDestination = isDestination;
     this.edges = new HashMap<>();
   }
 
@@ -64,7 +64,7 @@ public class AnchorItem extends Anchor {
     HashMap<String, Object> map = new HashMap<String, Object>();
     map.put("anchorId", anchorId);
     map.put("anchorName", anchorName);
-    map.put("destination", destination);
+    map.put("isDestination", isDestination);
     map.put("minutesSinceCreation", minutesSinceCreation);
     map.put("edges", edges);
 
@@ -123,10 +123,10 @@ public class AnchorItem extends Anchor {
   }
 
   public Boolean isDestination() {
-    return destination;
+    return isDestination;
   }
 
   public void setDestination(Boolean selected) {
-    this.destination = selected;
+    this.isDestination = selected;
   }
 }
