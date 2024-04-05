@@ -69,7 +69,7 @@ public class NavigateLobbyActivity extends AppCompatActivity {
                 MaterialButton findPathButton = findViewById(R.id.find_path_button);
                 findPathButton.setOnClickListener((view) -> onFindPathButtonPress());
                 for(AnchorItem anchor : firebaseAnchors){
-            if (anchor.isDestination()){
+            if (anchor.getIsDestination()){
                     filteredAnchors.add(anchor.getAnchorName());
             }
                 }

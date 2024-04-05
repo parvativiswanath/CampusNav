@@ -122,7 +122,7 @@ public class AnchorItem extends Anchor {
     }
   }
 
-  public Boolean isDestination() {
+  public Boolean getIsDestination() {
     return isDestination;
   }
 

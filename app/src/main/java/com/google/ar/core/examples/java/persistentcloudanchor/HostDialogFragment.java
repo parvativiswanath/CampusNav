@@ -38,7 +38,7 @@ public class HostDialogFragment extends DialogFragment {
      *
      * @param dialogValue the long value from the dialog box
      */
-    void onOkPressed(String dialogValue, Boolean destination);
+    void onOkPressed(String dialogValue, Boolean isDestination);
   }
 
   private EditText nicknameField;
