@@ -438,7 +438,7 @@ public class CloudAnchorActivity extends AppCompatActivity implements GLSurfaceV
       planeRenderer.createOnGlThread(this, "models/trigrid.png");
       pointCloudRenderer.createOnGlThread(this);
 
-      anchorObject.createOnGlThread(this, "models/anchor.obj", "models/anchor.png");
+      anchorObject.createOnGlThread(this, "models/andy.obj", "models/andy.png");
       anchorObject.setMaterialProperties(0.0f, 0.75f, 0.1f, 0.5f);
 
       featureMapQualityBarObject.createOnGlThread(
