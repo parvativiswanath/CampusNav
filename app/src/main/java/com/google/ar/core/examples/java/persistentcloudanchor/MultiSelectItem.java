@@ -84,7 +84,7 @@ public class MultiSelectItem extends ArrayAdapter<AnchorItem> {
       viewHolder.anchorName.setText("    Select Anchors");
       viewHolder.creationTime.setText("");
     } else {
-      if (anchorsList.get(anchorPosition).isSelected()) {
+      if (anchorsList.get(anchorPosition).getIsDestination()) {
         text = SPACE + CHECKED_BOX + SPACE + anchorsList.get(anchorPosition).getAnchorName();
       } else {
         text = SPACE + UNCHECKED_BOX + SPACE + anchorsList.get(anchorPosition).getAnchorName();
@@ -98,7 +98,7 @@ public class MultiSelectItem extends ArrayAdapter<AnchorItem> {
             public void onClick(View v) {
               spinner.performClick();
               int getPosition = (Integer) v.getTag();
-              anchorsList.get(getPosition).setSelected(!anchorsList.get(getPosition).isSelected());
+              anchorsList.get(getPosition).setDestination(!anchorsList.get(getPosition).getIsDestination());
               notifyDataSetChanged();
             }
           });

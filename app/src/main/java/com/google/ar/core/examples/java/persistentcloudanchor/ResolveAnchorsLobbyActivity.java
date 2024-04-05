@@ -142,7 +142,7 @@ public class ResolveAnchorsLobbyActivity extends AppCompatActivity {
     //gets the anchors tobe resolved
     // change it to the list obtained from the navigation process
     for (AnchorItem anchorItem : selectedAnchors) {
-      if (anchorItem.isSelected()) {
+      if (anchorItem.getIsDestination()) {
         anchorsToResolve.add(anchorItem.getAnchorId());
       }
     }

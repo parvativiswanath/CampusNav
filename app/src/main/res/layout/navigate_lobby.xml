@@ -22,123 +22,6 @@
       android:layout_height="match_parent"
       tools:context="com.google.ar.core.examples.java.persistentcloudanchor.MainLobbyActivity">
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/anchor_dest"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="320dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="8dp"
-        android:hint="@string/enter_anchor_name_hint"
-        android:textColorPrimary="#DADCE0"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.439"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/enter_anchor_instructions4" />
-
-    <!--    app:layout_constraintTop_toBottomOf="@id/enter_anchor"-->
-<!--    app:layout_constraintStart_toStartOf="parent"-->
-<!--    app:layout_constraintEnd_toEndOf="parent"-->
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/find_path_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="220dp"
-        android:text="@string/find_path_text"
-        android:theme="@style/AppButtonTheme"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enter_anchor" />
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/anchor_start"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="320dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="8dp"
-        android:hint="@string/enter_anchor_name_hint"
-        android:textColorPrimary="#DADCE0"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.417"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/enter_anchor_instructions" />
-
-    <TextView
-        android:id="@+id/enter_anchor_instructions4"
-        android:layout_width="316dp"
-        android:layout_height="21dp"
-        android:layout_marginTop="124dp"
-        android:gravity="left"
-        android:text="@string/navigate_dest_text"
-        android:textSize="14sp"
-        app:layout_constraintHorizontal_bias="0.43"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guideline_enter" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_select"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.16" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_enter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_end="603dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="89dp" />
-
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="30dp"
-        android:layout_height="1dp"
-        app:cardBackgroundColor="@android:color/primary_text_dark"
-        app:layout_constraintBottom_toBottomOf="@id/guideline_center"
-        app:layout_constraintTop_toTopOf="@id/guideline_center"
-        card_view:cardElevation="0dp"
-        tools:layout_editor_absoluteX="231dp" />
-
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="30dp"
-        android:layout_height="1dp"
-        app:cardBackgroundColor="@android:color/primary_text_dark"
-        app:layout_constraintBottom_toBottomOf="@id/guideline_center"
-        app:layout_constraintTop_toTopOf="@id/guideline_center"
-        card_view:cardElevation="0dp"
-        tools:layout_editor_absoluteX="150dp" />
-
-    <TextView
-        android:id="@+id/enter_anchor_instructions"
-        android:layout_width="316dp"
-        android:layout_height="21dp"
-        android:gravity="left"
-        android:text="@string/navigate_source_text"
-        android:textSize="14sp"
-        app:layout_constraintHorizontal_bias="0.442"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guideline_enter" />
-
-    <com.google.android.material.textfield.TextInputLayout
-          android:id="@+id/enter_anchor"
-          style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="40dp"
-          android:layout_marginEnd="40dp"
-          android:hint="@string/enter_anchor_name_hint"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/enter_anchor_instructions"/>
 
     <TextView
         android:id="@+id/navigate_title"
@@ -152,5 +35,125 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/enter_anchor_instructions"
+        android:layout_width="316dp"
+        android:layout_height="21dp"
+        android:gravity="left"
+        android:text="@string/navigate_source_text"
+        android:textSize="14sp"
+        app:layout_constraintHorizontal_bias="0.442"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideline_enter" />
+
+    <!--    app:layout_constraintTop_toBottomOf="@id/enter_anchor"-->
+<!--    app:layout_constraintStart_toStartOf="parent"-->
+<!--    app:layout_constraintEnd_toEndOf="parent"-->
+
+
+    <Spinner
+        android:id="@+id/select_source"
+        style="@style/Widget.AppCompat.Spinner.Underlined"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="40dp"
+        android:minHeight="48dp"
+        android:spinnerMode="dialog"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enter_anchor_instructions" />
+
+    <TextView
+        android:id="@+id/enter_anchor_instructions4"
+        android:layout_width="316dp"
+        android:layout_height="21dp"
+        android:layout_marginTop="84dp"
+        android:gravity="left"
+        android:text="@string/navigate_dest_text"
+        android:textSize="14sp"
+        app:layout_constraintHorizontal_bias="0.442"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/select_source" />
+
+    <Spinner
+        android:id="@+id/select_destination"
+        style="@style/Widget.AppCompat.Spinner.Underlined"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="40dp"
+        android:minHeight="48dp"
+        android:spinnerMode="dialog"
+        app:layout_constraintBottom_toTopOf="@+id/find_path_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enter_anchor_instructions4" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/find_path_button"
+        android:layout_width="118dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="68dp"
+        android:text="@string/find_path_text"
+        android:theme="@style/AppButtonTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/select_destination" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.15" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_enter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="574dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="106dp" />
+
+
+    <!--    <com.google.android.material.card.MaterialCardView-->
+<!--        android:layout_width="30dp"-->
+<!--        android:layout_height="1dp"-->
+<!--        app:cardBackgroundColor="@android:color/primary_text_dark"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/guideline_center"-->
+<!--        app:layout_constraintTop_toTopOf="@id/guideline_center"-->
+<!--        card_view:cardElevation="0dp"-->
+<!--        tools:layout_editor_absoluteX="150dp" />-->
+
+
+<!--    <com.google.android.material.textfield.TextInputLayout-->
+<!--        android:id="@+id/enter_anchor"-->
+<!--        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="40dp"-->
+<!--        android:layout_marginTop="24dp"-->
+<!--        android:layout_marginEnd="40dp"-->
+<!--        android:hint="@string/enter_anchor_name_hint"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.0"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/enter_anchor_instructions" />-->
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

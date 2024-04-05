@@ -34,7 +34,7 @@ public class AnchorItem extends Anchor {
   public final String anchorId;
   public final String anchorName;
   public final long minutesSinceCreation;
-  private boolean selected;
+  private Boolean isDestination;
   public Map<String, Float> edges;
 
   public AnchorItem() {
@@ -43,11 +43,11 @@ public class AnchorItem extends Anchor {
     minutesSinceCreation = 0;
   }
 
-  public AnchorItem(String anchorId, String anchorName, long minutesSinceCreation) {
+  public AnchorItem(String anchorId, String anchorName, long minutesSinceCreation, Boolean isDestination) {
     this.anchorId = anchorId;
     this.anchorName = anchorName;
     this.minutesSinceCreation = minutesSinceCreation;
-    this.selected = false;
+    this.isDestination = isDestination;
     this.edges = new HashMap<>();
   }
 
@@ -64,24 +64,25 @@ public class AnchorItem extends Anchor {
     HashMap<String, Object> map = new HashMap<String, Object>();
     map.put("anchorId", anchorId);
     map.put("anchorName", anchorName);
+    map.put("isDestination", isDestination);
     map.put("minutesSinceCreation", minutesSinceCreation);
     map.put("edges", edges);
 
     return map;
   }
 
-  public AnchorItem(DataSnapshot snapshot){
-    this.edges = new HashMap<String, Float>();
-    this.anchorId = snapshot.child("anchorId").getValue(String.class);
-    this.anchorName = snapshot.child("anchorName").getValue(String.class);
-    DataSnapshot minutesSinceCreationSnapshot = snapshot.child("minutesSinceCreation");
-    if (minutesSinceCreationSnapshot.exists()) {
-      this.minutesSinceCreation = minutesSinceCreationSnapshot.getValue(Integer.class);
-    } else {
-      // Handle the case when minutesSinceCreation is null or missing
-      this.minutesSinceCreation = 0; // Or any default value that makes sense in your context
-    }
-    this.edges = snapshot.child("edges").getValue(new GenericTypeIndicator<Map<String, Float>>() {});
+//  public AnchorItem(DataSnapshot snapshot){
+//    this.edges = new HashMap<String, Float>();
+//    this.anchorId = snapshot.child("anchorId").getValue(String.class);
+//    this.anchorName = snapshot.child("anchorName").getValue(String.class);
+//    DataSnapshot minutesSinceCreationSnapshot = snapshot.child("minutesSinceCreation");
+//    if (minutesSinceCreationSnapshot.exists()) {
+//      this.minutesSinceCreation = minutesSinceCreationSnapshot.getValue(Integer.class);
+//    } else {
+//      // Handle the case when minutesSinceCreation is null or missing
+//      this.minutesSinceCreation = 0; // Or any default value that makes sense in your context
+//    }
+//    this.edges = snapshot.child("edges").getValue(new GenericTypeIndicator<Map<String, Float>>() {});
     //ERRORRRRRRRRRRRRRRR(LINE 77)
 //    HashMap<String, Float> edges = new HashMap<>();
 //    this.edges = new HashMap<>();
@@ -95,7 +96,7 @@ public class AnchorItem extends Anchor {
 //        }
 //      }
 
-    }
+//    }
 
 
 
@@ -121,11 +122,11 @@ public class AnchorItem extends Anchor {
     }
   }
 
-  public boolean isSelected() {
-    return selected;
+  public Boolean getIsDestination() {
+    return isDestination;
   }
 
-  public void setSelected(boolean selected) {
-    this.selected = selected;
+  public void setDestination(Boolean selected) {
+    this.isDestination = selected;
   }
 }
