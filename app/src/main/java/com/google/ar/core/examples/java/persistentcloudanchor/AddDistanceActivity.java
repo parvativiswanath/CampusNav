@@ -65,7 +65,7 @@ public class AddDistanceActivity extends AppCompatActivity {
         // Clear the text fields
         anchor1.setText("");
         anchor2.setText("");
-        assert dist != null;
+//        assert dist != null;
         dist.setText("");
 
         // Show a notification message
