@@ -175,6 +175,11 @@ public class NavigateLobbyActivity extends AppCompatActivity {
                 .map(anchor -> anchor.anchorId)
                 .collect(Collectors.toList());
 
+        if(anchorIds.size() == 1 && anchorIds.contains(destAnchor.anchorId)){
+            Toast.makeText(this, "Mapping Inadequate to perform navigation", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
 
         Intent intent = CloudAnchorActivity.newResolvingIntent(this,new ArrayList<>(anchorIds));
         startActivity(intent);
