@@ -82,15 +82,23 @@ public class AddDistanceActivity extends AppCompatActivity {
 
     private void onUpdateFirebaseButtonPress() {
         Log.d("firebase", "Update with Firebase button pressed");
+        float distance;
 
         EditText anchor1 = (EditText) findViewById(R.id.anchor1);
         EditText anchor2 = (EditText) findViewById(R.id.anchor2);
         EditText dist = (EditText) findViewById(R.id.dist);
+        if (dist.getText().toString().trim().isEmpty()){
+            distance= 1f;
+        }
+        else{
+            distance = Float.parseFloat(dist.getText().toString());
+        }
+
 
         //Get data entered by the user
         String anchor1Name = anchor1.getText().toString();
         String anchor2Name = anchor2.getText().toString();
-        float distance = Float.parseFloat(dist.getText().toString());
+
         loadAnchorsFromFirebase(anchor1Name,anchor2Name,distance);
 
         // Clear the text fields
