@@ -154,9 +154,10 @@ public class ResolveAnchorsLobbyActivity extends AppCompatActivity {
       }
       anchorsToResolve.add(anchorId);
     }
-
-    // here starts resolving
-    Intent intent = CloudAnchorActivity.newResolvingIntent(this, anchorsToResolve);
-    startActivity(intent);
+    for (String id : anchorsToResolve) {
+      // here starts resolving
+      Intent intent = CloudAnchorActivity.newResolvingIntent(this, id);
+      startActivity(intent);
+    }
   }
 }
