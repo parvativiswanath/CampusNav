@@ -180,10 +180,10 @@ public class NavigateLobbyActivity extends AppCompatActivity {
             return;
         }
 
-        for (String anchor: new ArrayList<>(anchorIds)) {
-            Intent intent = CloudAnchorActivity.newResolvingIntent(this, anchor);
-            startActivity(intent);
-        }
+
+        Intent intent = CloudAnchorActivity.newResolvingIntent(this,new ArrayList<>(anchorIds));
+        startActivity(intent);
+
     }
 
     AnchorItem getFirebaseAnchorByName(String name) {

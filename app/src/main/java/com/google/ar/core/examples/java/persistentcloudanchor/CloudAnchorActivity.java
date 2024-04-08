@@ -94,7 +94,7 @@ public class CloudAnchorActivity extends AppCompatActivity implements GLSurfaceV
     return intent;
   }
 
-  static Intent newResolvingIntent(Context packageContext,String anchorsToResolve) {
+  static Intent newResolvingIntent(Context packageContext, ArrayList<String> anchorsToResolve) {
     Intent intent = new Intent(packageContext, CloudAnchorActivity.class);
     intent.putExtra(EXTRA_HOSTING_MODE, false);
     intent.putExtra(EXTRA_ANCHORS_TO_RESOLVE, anchorsToResolve);
@@ -155,7 +155,7 @@ public class CloudAnchorActivity extends AppCompatActivity implements GLSurfaceV
   private List<Anchor> resolvedAnchors = new ArrayList<>();
 
   @GuardedBy("anchorLock")
-  private String unresolvedAnchorIds;
+  private List<String> unresolvedAnchorIds = new ArrayList<>();
 
   private CloudAnchorManager cloudAnchorManager;
   private HostResolveMode currentMode;
@@ -626,7 +626,7 @@ public class CloudAnchorActivity extends AppCompatActivity implements GLSurfaceV
     synchronized (anchorLock) {
       if (unresolvedAnchorIds.contains(cloudAnchorId)) {
         resolvedAnchors.add(newAnchor);
-//        unresolvedAnchorIds.remove(cloudAnchorId);
+        unresolvedAnchorIds.remove(cloudAnchorId);
       }
     }
   }
@@ -648,19 +648,19 @@ public class CloudAnchorActivity extends AppCompatActivity implements GLSurfaceV
     createSession();
     ResolveListener resolveListener = new ResolveListener();
     synchronized (anchorLock) {
-      unresolvedAnchorIds = getIntent().getStringExtra(EXTRA_ANCHORS_TO_RESOLVE);
-//      debugText.setText(getString(R.string.debug_resolving_processing, unresolvedAnchorIds));
+      unresolvedAnchorIds = getIntent().getStringArrayListExtra(EXTRA_ANCHORS_TO_RESOLVE);
+      debugText.setText(getString(R.string.debug_resolving_processing, unresolvedAnchorIds.size()));
       // Encourage the user to look at a previously mapped area.
       userMessageText.setText(R.string.resolving_processing);
       Log.i(
           TAG,
           String.format(
               "Attempting to resolve %d anchor(s): %s",
-              1, unresolvedAnchorIds));
+              unresolvedAnchorIds.size(), unresolvedAnchorIds));
       //calling function for resolving
-
-        cloudAnchorManager.resolveCloudAnchor(unresolvedAnchorIds, resolveListener);
-
+      for (String cloudAnchorId : unresolvedAnchorIds) {
+        cloudAnchorManager.resolveCloudAnchor(cloudAnchorId, resolveListener);
+      }
     }
   }
 
@@ -683,9 +683,9 @@ public class CloudAnchorActivity extends AppCompatActivity implements GLSurfaceV
               TAG,
               String.format(
                   "Attempting to resolve %d anchor(s): %s",
-                  1, unresolvedAnchorIds));
-//          debugText.setText(
-//              getString(R.string.debug_resolving_processing, unresolvedAnchorIds));
+                  unresolvedAnchorIds.size(), unresolvedAnchorIds));
+          debugText.setText(
+              getString(R.string.debug_resolving_processing, unresolvedAnchorIds.size()));
         }
       }
     }
