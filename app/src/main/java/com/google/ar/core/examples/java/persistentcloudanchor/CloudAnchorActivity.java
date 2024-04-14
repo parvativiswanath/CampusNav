@@ -456,6 +456,7 @@ public class CloudAnchorActivity extends AppCompatActivity implements GLSurfaceV
     GLES20.glViewport(0, 0, width, height);
   }
 
+  //PLANE DETECTION
   @Override
   public void onDrawFrame(GL10 gl) {
     // Clear screen to notify driver it should not load any pixels from previous frame.
@@ -553,6 +554,7 @@ public class CloudAnchorActivity extends AppCompatActivity implements GLSurfaceV
     }
   }
 
+  // FEATURE MAP DETECTION AND QUALITY CHECKING
   private void updateFeatureMapQualityUi(Camera camera, float[] colorCorrectionRgba) {
     Pose featureMapQualityUiPose = anchorPose.compose(featureMapQualityUi.getUiTransform());
     float[] cameraUiFrame =
